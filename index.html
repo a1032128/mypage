@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>個人首頁</title>
+    <link rel="stylesheet" href="CSS/BS.css">
     <link rel="stylesheet" href="CSS/css01.css">
     <link rel="stylesheet" href="CSS/css02.css">
     <style>
@@ -86,15 +87,16 @@
         }
 
         .section02 .box01{
-            position: absolute;
-            width: 300px;
-            height: 300px;
+            width: 100%;
+            aspect-ratio: 1 / 1;
             background-color: var(--BerryBlush);
             border-radius: 50%;
-            left: 20px;
-            top: 20px;
             text-align: center;
             line-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 10px;
         }
 
         .section02 .box01 a{
@@ -119,11 +121,37 @@
         </div>
     </div>
     <div class="section02">
-        <div class="box01">
-            <a href="http://127.0.0.1:5500/20260129-1.html" target="_blank">CH1</a>
+        <div class="row">
+            <div class="col-3">
+                <div class="box01"></div>
+            </div>
+            <div class="col-3">
+                <div class="box01"></div>
+            </div>
+            <div class="col-3">
+                <div class="box01"></div>
+            </div>
+            <div class="col-3">
+                <div class="box01"></div>
+            </div>
+            <div class="col-3">
+                <div class="box01"></div>
+            </div>
+            <div class="col-3">
+                <div class="box01"><a href="20260212-2.html" target="_blank" >CH06</a></div>
+            </div>
+            <div class="col-3">
+                <div class="box01"></div>
+            </div>
+            <div class="col-3">
+                <div class="box01"></div>
+            </div>
         </div>
+        
     </div>
 
+    <script src="JS/BS.js"></script>
+    <script src="JS/jquery-4.0.0.js"></script>
 </body>
 
 </html>

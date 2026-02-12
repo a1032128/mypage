@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ch6 地方美食列表</title>
+    <link rel="stylesheet" href="CSS/BS.css">
+    <link rel="stylesheet" href="CSS/css02.css">
+    <style>
+        .content_box{
+            margin-top: 15px;
+            box-shadow: 2px,2px,4px,2px var();
+        }
+    </style>
+</head>
+<body>
+    <div class="title-1 text-center">地方美食列表</div>
+    <div class="container">
+        <div class="row"  id="mybody">
+            <div class="col-md-6 col-lg-4 col-xl-3 roller-r">
+                <div class="roller-r_box">
+                    <div class="btn btn-primary">查看更多</div>
+                </div>
+                <div style="background-image: url(images_vsco/bird.avif);height:160px;background-position: center center;background-size: cover;"></div>
+                <div class="h3 text-center fw-900">餐廳名稱</div>
+                <div class="h5">電話:xxxxxxxxx</div>
+                <div class="h5">地址:xxxxxxxxx</div>
+                <div class="h5">簡介:放下你們公路只不過屏東來源一份總是走出設備男子節省，億元品質圖像化總經理到了壓縮一定，某個配套性別收集加入勞動怎麼辦重點女友研發行政，將軍上班文章，重複金錢之外異常有效模糊一是本站增長，化工斗內違反算是實施經營品質虛擬您現在先生要求，走向走向，推坑王推坑。</div>
+            </div>
+        </div>
+    </div>
+    <script src="JS/BS.js"></script>
+    <script src="JS/jquery-4.0.0.js"></script>
+    <script>
+        $(function(){
+            $.ajax({
+                type :"GET",
+                url:"js/json/ODwsvTravelFood.json",
+                dataType:"json",
+                success: showdata,
+                error: function(){
+                    console.log ("error - JS/json/ODwsvTravelFood.json");
+                }
+            });
+        });
+
+        function showdata(data){
+            console.log(data);
+
+            $("#mybody").empty();
+
+            data.forEach(function(item){
+                console.log( item.City + item.Address + item.Email + item.FoodFeature + item.ID + item.Name + item.City + item.PicURL + item.Tel + item.Town );
+                
+                let img = item.PicURL ? item.PicURL : "images_vsco/unnamed.jpg";
+                let tel = item.Tel ? item.Tel : "未提供"
+                let hwords = item.FoodFeature ? item.FoodFeature.substring(0,30) : "未提簡介"
+                
+                // 要補上其他的資料防呆↓
+
+
+                let strHTML = `<div class="col-md-6 col-lg-4 col-xl-3 roller-r">
+                <div class="roller-r_box">
+                    <div class="btn btn-primary">查看更多</div>
+                </div>
+                    <div style="background-image: url('${img}');height:160px;background-position: center center;background-size: cover;">
+                </div>
+                <div class="h3 text-center fw-900">${item.Name}</div>
+                <div class="h5">電話:${tel}</div>
+                <div class="h5">地址:${item.City}${item.Town}${item.Address}</div>
+                <div class="h5">簡介:${hwords}</div>
+                </div>`
+                $("#mybody").append(strHTML);
+            })
+        }
+
+    </script>
+</body>
+</html>
