@@ -1,8 +1,8 @@
-
+/* 1. 插進字型：Cormorant Garamond (襯線) & Noto Serif TC */
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Noto+Serif+TC:wght@300;400;500&display=swap');
 
 :root {
-  
+  /* --- Ritual Tokens (由你提供) --- */
   --bg-deep: hsl(210, 22%, 11%);
   --bg-liminal: hsl(208, 20%, 15%);
   --bg-shore: hsl(205, 16%, 19%);
@@ -37,30 +37,33 @@
   --warmth: hsl(25, 18%, 55%);
   --warmth-faint: hsla(25, 15%, 50%, 0.12);
 
+  /* 字體定義 */
   --font-display: 'Cormorant Garamond', 'Noto Serif TC', serif;
   --font-body: 'Noto Serif TC', 'Cormorant Garamond', serif;
 }
 
+/* 基礎設定 */
 body {
     background: linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-liminal) 100%);
     color: var(--text-present);
     font-family: var(--font-body);
-    font-weight: 300; 
+    font-weight: 300; /* 預設氛圍感：輕 */
     min-height: 100vh;
     line-height: 1.6;
 }
 
+/* 文字權重類別 */
+.fw-300 { font-weight: 300; } /* 氛圍區 */
+.fw-400 { font-weight: 400; } /* 閱讀區 */
+.fw-500 { font-weight: 500; } /* 標籤 / 必讀 */
 
-.fw-300 { font-weight: 300; } 
-.fw-400 { font-weight: 400; } 
-.fw-500 { font-weight: 500; } 
-
-
+/* 標題設定 */
 .title-1 {
     font-family: var(--font-display);
     font-size: 56px;
     font-weight: 400;
     color: var(--text-surface);
+    /* 弱化原本芒果色的陰影，改為呼吸感的光暈 */
     text-shadow: 0 0 15px var(--interact-glow);
     letter-spacing: 4px;
 }
@@ -69,16 +72,17 @@ body {
     font-family: var(--font-display);
     font-size: 32px;
     font-weight: 300;
-    color: var(--text-shore); 
+    color: var(--text-shore); /* 帶點體溫的顏色作為次標 */
     font-style: italic;
 }
 
+/* 按鈕：從「跳動冰棒」轉變為「浮出水面」 */
 .btn-ritual {
     background-color: var(--interact-rest);
     color: var(--text-critical);
     border: 1px solid var(--border-present);
     padding: 10px 24px;
-    border-radius: 4px; 
+    border-radius: 4px; /* 捨棄膠囊型，改用更內斂的微圓角 */
     font-family: var(--font-display);
     font-weight: 500;
     transition: all 0.4s ease;
@@ -87,7 +91,7 @@ body {
 
 .btn-ritual:hover {
     background-color: var(--interact-hover);
-    box-shadow: 0 0 20px var(--warmth-faint); 
+    box-shadow: 0 0 20px var(--warmth-faint); /* 摸到時散發微溫 */
     transform: translateY(-1px);
 }
 
@@ -96,6 +100,7 @@ body {
     transform: translateY(1px);
 }
 
+/* 滑入遮罩修正：Ritual 質感 */
 .roller-l, .roller-r, .roller-t, .roller-b {
     position: relative;
     overflow: hidden;
@@ -115,13 +120,15 @@ body {
     justify-content: center;
     z-index: 10;
     
+    /* 遮罩改為半透明的 liminal 質感 */
     background: linear-gradient(135deg, var(--bg-shore), var(--surface-hover));
-    backdrop-filter: blur(8px); 
+    backdrop-filter: blur(8px); /* 增加模糊度 */
     color: var(--text-critical);
     
     transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* 方向邏輯保持不變 */
 .roller-l .roller-l_box { top: 0; left: -100%; }
 .roller-l:hover .roller-l_box { left: 0; }
 .roller-r .roller-r_box { top: 0; right: -100%; }
