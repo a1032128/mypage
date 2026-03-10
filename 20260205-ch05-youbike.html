@@ -46,10 +46,13 @@
 
             $.ajax({
                 type: "GET",
-                url: "js/json/youbike_immediate.json",
+                url: "JS/json/youbike_immediate.json",
                 dataType: "json",
+                cache: false,
                 success: showdata,
-                error: function () {
+                error: function (xhr) {
+                    console.log("responseURL:", xhr.responseURL);
+                    console.log("status:", xhr.status);
                 }
             })
         })
@@ -59,7 +62,7 @@
             $("#mybody").empty();
 
             data.forEach(function (item) {
-                
+
 
                 let strHTML = `<tr>
                     <td>${item.sno}</td>
