@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="CSS/BS.css">
+    <link rel="stylesheet" href="CSS/css02.css">
+    <style>
+        .box01{
+            height: 200px;
+            background-image: url(images/landscape01.avif);
+            background-position: center center;
+            background-size: cover;
+        }
+        .box02{
+            height: 90px;
+            color: aliceblue;
+            line-height: 90px;
+            font-size: 48px;
+            margin-top: 10px;
+        }
+        .box03{
+            padding: 10px;
+            box-shadow: 2px 2px 6px 2px #ccc;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+        .box03 .h3{
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+       
+
+        @media screen and (min-width: 768px){
+            .box02{
+                height: 180px;
+                line-height: 180px;
+            }
+        }
+        @media screen and (min-width: 992px){
+            .box02{
+                width: 180px;
+                border-radius: 50%;
+                background-color: var(--graffiti-burnt-ochre);
+            }
+        }
+         @media screen and (min-width: 1200px){
+            .box02{
+               width: 220px;
+               height: 220px;
+               line-height: 220px;
+               background-color: var(--graffiti-faded-purple);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+         <div class="row">
+            <div class="col-12 d-none d-sm-block">
+                <div class="box01"></div>
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-sm-6 col-md-3">
+                <div class="box02 bg-primary text-center fw-900">選單01</div>
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <div class="box02 bg-primary text-center fw-900">選單02</div>
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <div class="box02 bg-primary text-center fw-900">選單03</div>
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <div class="box02 bg-primary text-center fw-900">選單04</div>
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-md-6 col-lg-4">
+                <div class="box03 roller-l">
+                    <div class="roller-l_box">
+                        <button class="btn btn-warning">12345</button>
+                    </div>
+                    <img src="images/landscape01.avif" class="img-fluid" alt="">
+                    <div class="h3 fw-900 text-center">旅遊景點001</div>
+                    <p class="fw-600">上面複製這個需求簡介手機發達圍繞管理系統，不是很花園即可點此相冊收集當前各類，上門確實製品總經理隱藏描述感染，重大產生。</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="box03">
+                    <img src="images/landscape02.avif" class="img-fluid" alt="">
+                    <div class="h3 fw-900 text-center">旅遊景點001</div>
+                    <p class="fw-600">上面複製這個需求簡介手機發達圍繞管理系統，不是很花園即可點此相冊收集當前各類，上門確實製品總經理隱藏描述感染，重大產生。</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="box03">
+                    <img src="images/landscape03.avif" class="img-fluid" alt="">
+                    <div class="h3 fw-900 text-center">旅遊景點001</div>
+                    <p class="fw-600">上面複製這個需求簡介手機發達圍繞管理系統，不是很花園即可點此相冊收集當前各類，上門確實製品總經理隱藏描述感染，重大產生。</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="box03">
+                    <img src="images/landscape04.avif" class="img-fluid" alt="">
+                    <div class="h3 fw-900 text-center">旅遊景點001</div>
+                    <p class="fw-600">上面複製這個需求簡介手機發達圍繞管理系統，不是很花園即可點此相冊收集當前各類，上門確實製品總經理隱藏描述感染，重大產生。</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="box03">
+                    <img src="images/landscape05.avif" class="img-fluid" alt="">
+                    <div class="h3 fw-900 text-center">旅遊景點001</div>
+                    <p class="fw-600">上面複製這個需求簡介手機發達圍繞管理系統，不是很花園即可點此相冊收集當前各類，上門確實製品總經理隱藏描述感染，重大產生。</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="box03">
+                    <img src="images/landscape06.avif" class="img-fluid" alt="">
+                    <div class="h3 fw-900 text-center">旅遊景點001</div>
+                    <p class="fw-600">上面複製這個需求簡介手機發達圍繞管理系統，不是很花園即可點此相冊收集當前各類，上門確實製品總經理隱藏描述感染，重大產生。</p>
+                </div>
+            </div>
+         </div>
+    </div>
+    <script src="js/bootstrap.bundle.min.js"></script>
+<script>
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+    <script src="JS/BS.js"></script>
+    <script src="JS/jquery-4.0.0.js"></script>
+</body>
+</html>

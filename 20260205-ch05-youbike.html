@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>練習 youbike</title>
+    <link rel="stylesheet" href="CSS/BS.css">
+    <link rel="stylesheet" href="CSS/css02.css">
+</head>
+
+<body>
+    <div class="title-1 text-center" id="mytitle">Youbike表格</div>
+    <div class="container">
+        <table class="table table-bordred table-striped table-rwd">
+            <thead class="table-info">
+                <tr>
+                    <th>編號</th>
+                    <th>更新時間</th>
+                    <th>已借出</th>
+                    <th>可租借</th>
+                    <th>站點</th>
+                    <th>站點地址</th>
+                </tr>
+            </thead>
+            <tbody id="mybody">
+                <tr>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="JS/BS.js"></script>
+    <script src="JS/jquery-4.0.0.js"></script>
+
+    <script>
+        $(function () {
+
+            $("#mytitle").html("台北市YouBike租借情況")
+
+            $.ajax({
+                type: "GET",
+                url: "js/json/youbike_immediate.json",
+                dataType: "json",
+                success: showdata,
+                error: function () {
+                }
+            })
+        })
+
+        function showdata(data) {
+
+            $("#mybody").empty();
+
+            data.forEach(function (item) {
+                
+
+                let strHTML = `<tr>
+                    <td>${item.sno}</td>
+                    <td>${item.updateTime}</td>
+                    <td>${item.available_rent_bikes}</td>
+                    <td>${item.available_return_bikes}</td>
+                    <td>${item.sna}</td>
+                    <td>${item.ar}</td>
+                    </tr>`
+
+                $("#mybody").append(strHTML);
+            })
+        }
+    </script>
+</body>
+
+</html>

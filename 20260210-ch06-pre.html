@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ch6 作業</title>
+    <link rel="stylesheet" href="CSS/BS.css">
+    <link rel="stylesheet" href="CSS/css02.css">
+    <style>
+        .box01{
+            height: 120px;
+            background-color: saddlebrown;
+            margin-top: 15px;
+        }
+
+        .roller02{
+            position: relative;
+            overflow: hidden;
+        }
+
+        .roller02 .roller_box02{
+            position: absolute;
+            width:100%;
+            height:100%;
+            background-color: rgba(0, 0, 0, 0.3);
+            right: -100%;
+        }
+        .roller02:hover .roller_box02{
+            right: 0;
+            transition: right 2s;
+        }
+
+         .roller03{
+            position: relative;
+            overflow: hidden;
+        }
+
+        .roller03 .roller_box03{
+            position: absolute;
+            width:100%;
+            height:100%;
+            background-color: rgba(0, 0, 0, 0.3);
+            top:-100%
+        }
+        .roller03:hover .roller_box03{
+            top: 0;
+            transition: top 2s;
+        }
+
+         .roller04{
+            position: relative;
+            overflow: hidden;
+        }
+
+        .roller04 .roller_box04{
+            position: absolute;
+            width:100%;
+            height:100%;
+            background-color: rgba(0, 0, 0, 0.3);
+            bottom:-100%
+        }
+        .roller04:hover .roller_box04{
+            bottom: 0;
+            transition: bottom 2s;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 d-md-none d-lg-block">
+                <div class="box01 bg-success text-center">header</div>
+            </div>
+        </div>
+    
+        <div class="row">
+            <div class="col-sm-6 col-lg-4 col-xxl-2">
+                <div class="box01 bg-warning"></div>
+            </div>
+            <div class="col-sm-6 col-lg-4 col-xxl-2">
+                <div class="box01 bg-warning roller02">
+                    <div class="roller_box02">01</div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-4 col-xxl-2">
+                <div class="box01 bg-warning roller03">
+                    <div class="roller_box03"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-4 col-xxl-2">
+                <div class="box01 bg-warning roller04">
+                    <div class="roller_box04"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-4 col-xxl-2">
+                <div class="box01 bg-warning"></div>
+            </div>
+            <div class="col-sm-6 col-lg-4 col-xxl-2">
+                <div class="box01 bg-warning"></div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-xl-3">
+                <div class="box01 bg-danger"></div>
+            </div>
+            <div class="col-md-6 col-xl-3">
+                <div class="box01 bg-danger"></div>
+            </div>
+            <div class="col-md-6 col-xl-3">
+                <div class="box01 bg-danger"></div>
+            </div>
+            <div class="col-md-6 col-xl-3">
+                <div class="box01 bg-danger"></div>
+            </div>
+            <div class="col-md-6 col-xl-3">
+                <div class="box01 bg-danger"></div>
+            </div>
+            <div class="col-md-6 col-xl-3">
+                <div class="box01 bg-danger"></div>
+            </div>
+            <div class="col-md-6 col-xl-3">
+                <div class="box01 bg-danger"></div>
+            </div>
+            <div class="col-md-6 col-xl-3"> 
+                <div class="box01 bg-danger"></div>
+            </div>
+        </div>
+
+        </div>
+<script src="JS/BS.js"></script>
+</body>
+</html>

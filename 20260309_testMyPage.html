@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>學習歷程 - Ritual MangoGlow</title>
+    <link rel="stylesheet" href="CSS/BS.css">
+    <link rel="stylesheet" href="CSS/css04.css">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Iansui&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500&display=swap');
+        
+    
+        .section01 {
+            background: linear-gradient(135deg, var(--bg-shore), var(--surface-emerging));
+            height: 100vh;
+            position: relative;
+            border-bottom: 1px solid var(--border-faint);
+        }
+
+        .section01 .box01, .section01 .box02, .section01 .box03, .section01 .box04 {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, var(--PopsicleSun-accent), var(--CitrusSpark-accent));
+            position: absolute;
+            border-radius: 24px;
+            box-shadow: 0 8px 24px var(--interact-glow);
+            transition: all 0.4s ease;
+        }
+
+        .section01 .box01 { top: 0; left: 0; }
+        .section01 .box02 { top: 0; right: 0; }
+        .section01 .box03 { bottom: 0; left: 0; }
+        .section01 .box04 { bottom: 0; right: 0; }
+
+        .section01 .box01:hover { transform: scale(1.1) rotate(5deg); }
+        .section01 .box02:hover { transform: scale(1.1) rotate(-5deg); }
+        .section01 .box04:hover { transform: scale(1.1) rotate(-5deg); }
+        .section01 .box03:hover { transform: scale(1.1) rotate(-5deg); }
+
+        .userimg {
+            position: absolute;
+            top: 100px; bottom: 100px; left: 100px; right: 100px;
+            background: linear-gradient(rgba(0,0,0,0.4), transparent), 
+                        url('images_vsco/unnamed.jpg');
+            background-size: cover;
+            background-position: 30% 70%;
+            border-radius: 24px;
+            box-shadow: inset 0 0 40px rgba(0,0,0,0.6);
+        }
+
+        .usertext {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--text-shore);
+            background: rgba(23, 21, 22, 0.6);
+            backdrop-filter: blur(12px);
+            text-align: center;
+            padding: 2rem;
+            border-radius: 24px;
+            border: 1px solid var(--border-present);
+            box-shadow: 0 12px 32px var(--interact-glow);
+        }
+        .usertext h1 { @extend .title-1; margin-bottom: 1rem; }
+        .usertext h2 { @extend .title-2; }
+        .usertext p { 
+            font-size: 1.25rem; 
+            font-weight: 400;
+            color: var(--text-readable);
+            line-height: 1.6;
+        }
+
+        .section02 {
+            position: relative;
+            min-height: 500px;
+            padding: 4rem 2rem;
+            background: linear-gradient(180deg, var(--reading-bg), var(--reading-bg-elevated));
+        }
+
+        .section02 .box01 {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            background: linear-gradient(135deg, var(--surface-emerging), var(--interact-rest));
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            border: 2px solid var(--border-faint);
+            transition: all 0.3s ease;
+            margin: 1rem;
+        }
+
+        .section02 .box01:hover {
+            background: var(--surface-hover);
+            transform: scale(1.05);
+            box-shadow: 0 12px 32px var(--interact-glow);
+            border-color: var(--MangoGlow-accent);
+        }
+
+        .section02 .box01 a {
+            text-decoration: none;
+            color: var(--text-readable);
+            font-size: 1.5rem;
+            font-weight: 500;
+            width: 70%;
+            aspect-ratio: 1/1;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="section01">
+        <div class="box01"></div>
+        <div class="box02"></div>
+        <div class="box03"></div>
+        <div class="box04"></div>
+        <div class="userimg"></div>
+        <div class="usertext">
+            <h1>獎勵漂</h1>
+            <hr style="border-color: var(--MangoGlow-accent);">
+            <h2>最初必須，民間。</h2>
+            <p>同一觀眾領導留言具備可以對她增長，格式人數情況進度，前後承諾戰鬥，更。</p>
+        </div>
+    </div>
+
+    <div class="section02">
+        
+        <div class="row g-4 justify-content-center">
+            
+            <div class="col-6 col-md-3 col-lg-2">
+                <div class="box01">
+                    <a href="20260122-1.html" target="_blank">CH01-1</a>
+                </div>
+            </div>
+            <div class="col-6 col-md-3 col-lg-2">
+                <div class="box01">
+                    <a href="20260122-2-my.html" target="_blank">CH01-2</a>
+                </div>
+            </div>
+            <div class="col-6 col-md-3 col-lg-2">
+                <div class="box01">
+                    <a href="20260122-ex01.html" target="_blank">CH01-3</a>
+                </div>
+            </div>
+
+            <div class="col-6 col-md-3 col-lg-2">
+                <div class="box01">
+                    <a href="20260127_2_pre.html" target="_blank">CH02-1</a>
+                </div>
+            </div>
+             <div class="col-6 col-md-3 col-lg-2">
+                <div class="box01">
+                    <a href="20260127-1.html" target="_blank">CH02-2</a>
+                </div>
+            </div>
+             <div class="col-6 col-md-3 col-lg-2">
+                <div class="box01">
+                    <a href="20260129-1 (2).html" target="_blank">CH02-3</a>
+                </div>
+            </div>
+            <div class="col-6 col-md-3 col-lg-2">
+                <div class="box01">
+                    <a href="20260129-1.html" target="_blank">CH02-4</a>
+                </div>
+            </div>
+            <div class="col-6 col-md-3 col-lg-2">
+                <div class="box01">
+                    <a href="20260129-EX01-nav.html" target="_blank">CH02-5</a>
+                </div>
+            </div>
+            <div class="col-6 col-md-3 col-lg-2">
+                <div class="box01">
+                    <a href="20260203-1.html" target="_blank">CH03</a>
+                </div>
+            </div>
+
+            <div class="col-6 col-md-3 col-lg-2">
+                <div class="box01">
+                    <a href="20260203-2.html" target="_blank">CH04</a>
+                </div>
+            </div>
+
+             <div class="col-6 col-md-3 col-lg-2">
+                <div class="box01">
+                    <a href="20260203-3.html" target="_blank">CH05-1</a>
+                </div>
+            </div>
+
+            <div class="col-6 col-md-3 col-lg-2">
+                <div class="box01">
+                    <a href="20260205-ch05-table.html" target="_blank">CH05-2</a>
+                </div>
+            </div>
+
+            <div class="col-6 col-md-3 col-lg-2">
+                <div class="box01">
+                    <a href="20260205-ch05-youbike.html" target="_blank">CH05-3</a>
+                </div>
+            </div>
+
+             <div class="col-6 col-md-3 col-lg-2">
+                <div class="box01">
+                    <a href="20260210-ch06.html" target="_blank">CH06-1</a>
+                </div>
+            </div>
+
+            <div class="col-6 col-md-3 col-lg-2">
+                <div class="box01">
+                    <a href="20260210-ch06-pre.html" target="_blank">CH06-2</a>
+                </div>
+            </div>
+           
+            <div class="col-6 col-md-3 col-lg-2">
+                <div class="box01">
+                    <a href="20260212-2.html" target="_blank">CH06-3</a>
+                </div>
+            </div>
+
+            <div class="col-6 col-md-3 col-lg-2">
+                <div class="box01">
+                    <a href="20260224-3.html" target="_blank">CH07-1</a>
+                </div>
+            </div>
+
+            <div class="col-6 col-md-3 col-lg-2">
+                <div class="box01">
+                    <a href="20260224-4.html" target="_blank">CH07-2</a>
+                </div>
+            </div>
+
+            <div class="col-6 col-md-3 col-lg-2">
+                <div class="box01">
+                    <a href="20260224-ch7-spacing.html" target="_blank">CH07-3</a>
+                </div>
+            </div>
+
+            <div class="col-6 col-md-3 col-lg-2">
+                <div class="box01">
+                    <a href="20260224-ch7.html" target="_blank">CH07-4</a>
+                </div>
+            </div>
+
+            <div class="col-6 col-md-3 col-lg-2">
+                <div class="box01">
+                    <a href="20260224-ch7-ex1.html" target="_blank">CH07-5</a>
+                </div>
+            </div>
+
+            <div class="col-6 col-md-3 col-lg-2">
+                <div class="box01">
+                    <a href="20260224-5.html" target="_blank">CH07-6</a>
+                </div>
+            </div>
+
+            <div class="col-6 col-md-3 col-lg-2">
+                <div class="box01">
+                    <a href="20260226-ch11.html" target="_blank">CH11-1</a>
+                </div>
+            </div>
+
+            <div class="col-6 col-md-3 col-lg-2">
+                <div class="box01">
+                    <a href="20260303-ch11-ex01.html" target="_blank">CH11-1</a>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+
+    <script src="JS/BS.js"></script>
+    <script src="JS/jquery-4.0.0.js"></script>
+</body>
+</html>

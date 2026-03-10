@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CH11練習 - 飲料訂購</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+
+    <style>
+        :root {
+            --cream:     #F5EDD6;
+            --cream-dark:#EAD9B4;
+            --brick:     #B94B3A;
+            --brick-dark:#8C3328;
+            --green:     #2D5016;
+            --green-mid: #3D6B20;
+            --brown:     #3B2314;
+            --brown-light:#6B4226;
+            --gold:      #C9922A;
+            --paper:     #FBF5E6;
+            --shadow:    rgba(59,35,20,0.18);
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+
+        body {
+            background-color: var(--cream);
+            background-image:
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='4' height='4' fill='%23F5EDD6'/%3E%3Ccircle cx='1' cy='1' r='0.6' fill='%23D4C49A' opacity='0.35'/%3E%3Ccircle cx='3' cy='3' r='0.6' fill='%23D4C49A' opacity='0.35'/%3E%3C/svg%3E");
+            font-family: 'Noto Serif TC', serif;
+            color: var(--brown);
+            min-height: 100vh;
+            padding-bottom: 48px;
+        }
+
+        .banner {
+            background-color: var(--brick);
+            background-image: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 8px,
+                rgba(0,0,0,0.04) 8px,
+                rgba(0,0,0,0.04) 9px
+            );
+            border: 4px solid var(--brown);
+            border-radius: 12px;
+            padding: 32px 28px;
+            position: relative;
+            box-shadow: 6px 6px 0 var(--brown);
+        }
+
+        .banner::before,
+        .banner::after {
+            content: '✦';
+            position: absolute;
+            font-size: 1.4rem;
+            color: var(--gold);
+            top: 14px;
+        }
+        .banner::before { left: 20px; }
+        .banner::after  { right: 20px; }
+
+        .banner-title {
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-weight: 900;
+            color: var(--cream);
+            text-align: center;
+            letter-spacing: 0.18em;
+            text-shadow: 3px 3px 0 var(--brown);
+            margin: 0;
+        }
+
+        .banner-sub {
+            text-align: center;
+            color: var(--gold);
+            letter-spacing: 0.3em;
+            font-size: 0.8rem;
+            margin-top: 6px;
+        }
+
+        .retro-hr {
+            border: none;
+            height: 3px;
+            background: repeating-linear-gradient(
+                90deg,
+                var(--brick) 0, var(--brick) 12px,
+                transparent 12px, transparent 18px
+            );
+            margin: 20px 0;
+        }
+
+        .section-card {
+            background: var(--paper);
+            border: 2px solid var(--brown-light);
+            border-radius: 8px;
+            padding: 20px 22px;
+            margin-bottom: 18px;
+            box-shadow: 3px 3px 0 var(--cream-dark);
+        }
+
+        .section-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--green);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title::before {
+            content: '';
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            background: var(--brick);
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
+
+        .form-control,
+        .form-select {
+            border: 2px solid var(--brown-light);
+            border-radius: 6px;
+            background-color: var(--cream);
+            color: var(--brown);
+            font-family: 'Noto Serif TC', serif;
+            font-size: 0.95rem;
+            transition: border-color .2s, box-shadow .2s;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: var(--brick);
+            background-color: var(--paper);
+            box-shadow: 0 0 0 3px rgba(185,75,58,0.15);
+            outline: none;
+        }
+
+        .form-floating > .form-control:focus ~ label,
+        .form-floating > .form-control:not(:placeholder-shown) ~ label {
+            color: var(--brick);
+            font-size: 0.78rem;
+        }
+
+        .form-floating > label {
+            color: var(--brown-light);
+            font-family: 'Noto Serif TC', serif;
+        }
+
+        .form-select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24'%3E%3Cpath fill='%238C3328' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+        }
+
+        .toppings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 10px;
+        }
+
+        .topping-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--cream);
+            border: 2px solid var(--cream-dark);
+            border-radius: 6px;
+            padding: 8px 12px;
+            cursor: pointer;
+            transition: border-color .2s, background .2s;
+            user-select: none;
+        }
+
+        .topping-item:hover {
+            border-color: var(--green-mid);
+            background: #EDF5E1;
+        }
+
+        .topping-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--green);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .topping-item input[type="checkbox"]:checked + span {
+            color: var(--green);
+            font-weight: 700;
+        }
+
+        .topping-item:has(input:checked) {
+            border-color: var(--green);
+            background: #EDF5E1;
+        }
+
+        .range-wrap {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 14px;
+        }
+
+        .range-label {
+            font-size: 0.85rem;
+            color: var(--brown-light);
+            white-space: nowrap;
+        }
+
+        .qty-badge {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: var(--brick);
+            min-width: 2.5ch;
+            text-align: center;
+        }
+
+        .form-range {
+            flex: 1;
+            accent-color: var(--brick);
+            height: 6px;
+        }
+
+        .form-range::-webkit-slider-thumb {
+            background: var(--brick);
+            border: 2px solid var(--brown);
+            width: 20px;
+            height: 20px;
+        }
+
+        .price-row {
+            background: var(--cream-dark);
+            border: 2px dashed var(--brown-light);
+            border-radius: 6px;
+            padding: 10px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            color: var(--brown-light);
+        }
+
+        .price-row .price-num {
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--gold);
+        }
+
+        .total-bar {
+            background: var(--green);
+            border-radius: 8px;
+            padding: 14px 22px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            box-shadow: 4px 4px 0 var(--brown);
+        }
+
+        .total-label {
+            color: var(--cream);
+            font-size: 1rem;
+            letter-spacing: 0.15em;
+            font-weight: 700;
+        }
+
+        .total-num {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--gold);
+            text-shadow: 1px 1px 0 var(--brown);
+        }
+
+        .btn-group-retro {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-cancel {
+            flex: 1;
+            background: var(--cream);
+            color: var(--brown);
+            border: 2px solid var(--brown-light);
+            border-radius: 8px;
+            padding: 12px;
+            font-family: 'Noto Serif TC', serif;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all .2s;
+            box-shadow: 2px 2px 0 var(--cream-dark);
+        }
+
+        .btn-cancel:hover {
+            background: var(--cream-dark);
+            box-shadow: 3px 3px 0 var(--brown-light);
+            transform: translateY(-1px);
+        }
+
+        .btn-submit {
+            flex: 2;
+            background: linear-gradient(135deg, var(--brick) 0%, var(--brick-dark) 100%);
+            color: var(--cream);
+            border: 2px solid var(--brown);
+            border-radius: 8px;
+            padding: 12px;
+            font-family: 'Noto Serif TC', serif;
+            font-weight: 900;
+            font-size: 1rem;
+            letter-spacing: 0.2em;
+            cursor: pointer;
+            transition: all .2s;
+            box-shadow: 4px 4px 0 var(--brown), 0 4px 12px rgba(185,75,58,0.35);
+        }
+
+        .btn-submit:hover {
+            background: linear-gradient(135deg, #C9564A 0%, var(--brick) 100%);
+            box-shadow: 6px 6px 0 var(--brown), 0 6px 18px rgba(185,75,58,0.45);
+            transform: translateY(-2px);
+        }
+
+        .btn-submit:active {
+            transform: translateY(1px);
+            box-shadow: 2px 2px 0 var(--brown);
+        }
+
+        .detail-header {
+            background: var(--gold);
+            border: 3px solid var(--brown);
+            border-radius: 10px;
+            padding: 16px 24px;
+            text-align: center;
+            font-size: clamp(1.4rem, 4vw, 2rem);
+            font-weight: 900;
+            color: var(--brown);
+            letter-spacing: 0.15em;
+            box-shadow: 5px 5px 0 var(--brown);
+            margin-bottom: 20px;
+        }
+
+        .order-card {
+            background: var(--paper);
+            border: 2px solid var(--brown-light);
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin-bottom: 14px;
+            position: relative;
+            box-shadow: 3px 3px 0 var(--cream-dark), 0 2px 8px var(--shadow);
+        }
+
+        .order-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 6px;
+            height: 100%;
+            background: var(--brick);
+            border-radius: 8px 0 0 8px;
+        }
+
+        .order-card-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--brown);
+            margin-bottom: 6px;
+        }
+
+        .order-card-detail {
+            font-size: 0.82rem;
+            color: var(--brown-light);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .order-tag {
+            background: var(--cream-dark);
+            border: 1px solid var(--cream-dark);
+            border-radius: 4px;
+            padding: 2px 8px;
+            font-size: 0.78rem;
+        }
+
+        .empty-notice {
+            text-align: center;
+            color: var(--brown-light);
+            font-size: 0.9rem;
+            padding: 24px;
+            border: 2px dashed var(--cream-dark);
+            border-radius: 8px;
+            letter-spacing: 0.1em;
+        }
+
+        @media (max-width: 576px) {
+            .toppings-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .btn-group-retro {
+                flex-direction: column;
+            }
+            .btn-submit { flex: unset; }
+            .btn-cancel { flex: unset; }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" style="max-width: 680px;">
+
+        <div class="row justify-content-center mt-4 mb-3">
+            <div class="col-11">
+                <div class="banner">
+                    <h1 class="banner-title">飲　料　訂　購</h1>
+                    <p class="banner-sub">DRINK ORDER SYSTEM</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="retro-hr"></div>
+
+        <div class="section-card">
+            <div class="section-title">訂購者資訊</div>
+            <div class="form-floating">
+                <input type="text" class="form-control" id="buyerName" placeholder=" ">
+                <label for="buyerName">訂購者名稱（2～5字）</label>
+            </div>
+        </div>
+
+        <div class="section-card">
+            <div class="section-title">產品選擇</div>
+            <div class="mb-3">
+                <label for="productName" class="form-label" style="font-size:.85rem; color:var(--brown-light); letter-spacing:.05em;">產品名稱（2～6字）</label>
+                <input type="text" class="form-control" id="productName" placeholder="輸入或選擇品項" list="P_list">
+                <datalist id="P_list">
+                    <option value="紅茶"></option>
+                    <option value="綠茶"></option>
+                    <option value="珍珠奶茶"></option>
+                    <option value="咖啡"></option>
+                </datalist>
+            </div>
+            <select id="iceLevel" class="form-select form-select-lg">
+                <option value="" disabled selected>── 請選擇冰塊 ──</option>
+                <option value="全冰">全冰</option>
+                <option value="少冰">少冰</option>
+                <option value="微冰">微冰</option>
+                <option value="去冰">去冰</option>
+            </select>
+        </div>
+
+        <div class="section-card">
+            <div class="section-title">單點配料</div>
+            <div class="toppings-grid">
+                <label class="topping-item">
+                    <input type="checkbox" name="topping" value="粉圓">
+                    <span>粉圓</span>
+                </label>
+                <label class="topping-item">
+                    <input type="checkbox" name="topping" value="QQ">
+                    <span>QQ</span>
+                </label>
+                <label class="topping-item">
+                    <input type="checkbox" name="topping" value="珍珠">
+                    <span>珍珠</span>
+                </label>
+                <label class="topping-item">
+                    <input type="checkbox" name="topping" value="仙草">
+                    <span>仙草</span>
+                </label>
+            </div>
+
+            <div class="range-wrap">
+                <span class="range-label">杯數</span>
+                <span class="qty-badge" id="qtyDisplay">1</span>
+                <input type="range" class="form-range" id="qtyRange" min="1" max="50" step="1" value="1">
+                <span class="range-label" style="min-width:3ch;">50</span>
+            </div>
+        </div>
+
+        <div class="section-card">
+            <div class="section-title">備註 &amp; 費用</div>
+
+            <div class="mb-3">
+                <label for="remark" class="form-label" style="font-size:.85rem; color:var(--brown-light);">備註（2～10字）</label>
+                <textarea id="remark" class="form-control" rows="2"></textarea>
+            </div>
+
+            <div class="price-row mb-2">
+                <span>單　價</span>
+                <span>杯　數 × <span id="priceUnit" class="price-num">xx</span></span>
+            </div>
+        </div>
+
+        <div class="total-bar">
+            <span class="total-label">總　價</span>
+            <span class="total-num"><span id="totalPrice">0</span> 元</span>
+        </div>
+
+        <div class="btn-group-retro mb-5">
+            <button class="btn-cancel">取　消</button>
+            <button class="btn-submit">送　出　訂　單</button>
+        </div>
+
+        <div class="retro-hr"></div>
+
+        <div class="detail-header">✦ 飲料訂購明細 ✦</div>
+
+        <div id="orderList">
+            <div class="empty-notice">尚無訂單紀錄</div>
+        </div>
+
+        <div class="order-card">
+            <div class="order-card-name">珍珠奶茶</div>
+            <div class="order-card-detail">
+                <span class="order-tag">少冰</span>
+                <span class="order-tag">粉圓 × 1</span>
+                <span class="order-tag">2 杯</span>
+                <span class="order-tag">備註：少糖</span>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const qtyRange = document.getElementById('qtyRange');
+        const qtyDisplay = document.getElementById('qtyDisplay');
+        if (qtyRange) {
+            qtyRange.addEventListener('input', () => {
+                qtyDisplay.textContent = qtyRange.value;
+            });
+        }
+    </script>
+</body>
+
+</html>

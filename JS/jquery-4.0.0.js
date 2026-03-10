@@ -1,21 +1,11 @@
-/*!
- * jQuery JavaScript Library v4.0.0
- * https://jquery.com/
- *
- * Copyright OpenJS Foundation and other contributors
- * Released under the MIT license
- * https://jquery.com/license/
- *
- * Date: 2026-01-18T00:20Z
- */
+
 ( function( global, factory ) {
 
 	"use strict";
 
 	if ( typeof module === "object" && typeof module.exports === "object" ) {
 
-		// For CommonJS and CommonJS-like environments where a proper `window`
-		// is present, execute the factory and get jQuery.
+	
 		module.exports = factory( global, true );
 	} else {
 		factory( global );
@@ -36,8 +26,7 @@ var getProto = Object.getPrototypeOf;
 
 var slice = arr.slice;
 
-// Support: IE 11+
-// IE doesn't have Array#flat; provide a fallback.
+
 var flat = arr.flat ? function( array ) {
 	return arr.flat.call( array );
 } : function( array ) {
@@ -48,7 +37,6 @@ var push = arr.push;
 
 var indexOf = arr.indexOf;
 
-// [[Class]] -> type pairs
 var class2type = {};
 
 var toString = class2type.toString;
@@ -59,7 +47,6 @@ var fnToString = hasOwn.toString;
 
 var ObjectFunctionString = fnToString.call( Object );
 
-// All support tests are defined in their respective modules.
 var support = {};
 
 function toType( obj ) {
@@ -120,30 +107,25 @@ var version = "4.0.0",
 
 	rhtmlSuffix = /HTML$/i,
 
-	// Define a local copy of jQuery
 	jQuery = function( selector, context ) {
 
-		// The jQuery object is actually just the init constructor 'enhanced'
-		// Need init if jQuery is called (just allow error to be thrown if not included)
+		
 		return new jQuery.fn.init( selector, context );
 	};
 
 jQuery.fn = jQuery.prototype = {
 
-	// The current version of jQuery being used
 	jquery: version,
 
 	constructor: jQuery,
 
-	// The default length of a jQuery object is 0
 	length: 0,
 
 	toArray: function() {
 		return slice.call( this );
 	},
 
-	// Get the Nth element in the matched element set OR
-	// Get the whole matched element set as a clean array
+
 	get: function( num ) {
 
 		// Return all the elements in a clean array

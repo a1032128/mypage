@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>個人首頁</title>
+    <link rel="stylesheet" href="CSS/BS.css">
+    <link rel="stylesheet" href="CSS/css01.css">
+    <link rel="stylesheet" href="CSS/css02.css">
+    <style>
+        .section01 {
+            background-color: var(--MangoGlow);
+            height: 100vh;
+            position: relative;
+        }
+
+        .section01 .box01 {
+            width: 200px;
+            height: 200px;
+            background-color: var(--PopsicleSun);
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .section01 .box02 {
+            width: 200px;
+            height: 200px;
+            background-color: var(--PopsicleSun);
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+
+        .section01 .box03 {
+            width: 200px;
+            height: 200px;
+            background-color: var(--PopsicleSun);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+
+        .section01 .box04 {
+            width: 200px;
+            height: 200px;
+            background-color: var(--PopsicleSun);
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+
+        .userimg {
+            position: absolute;
+            top: 100px;
+            bottom: 100px;
+            left: 100px;
+            right: 100px;
+            background-color: var(--BlueberryNight);
+            background-image: url(images_vsco/unnamed.jpg);
+            background-size: cover;
+            background-position: 30% 70%;
+            opacity: 0.95;
+        }
+
+        .usertext {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--TropicalMist);
+            background-color: rgba(0, 0, 0, 0.2);
+            text-align: center;
+            padding: 20px;
+            border-radius: 25px;
+            box-shadow: 1px 1px 2px 1px var(--LeafWhisper);
+        }
+
+        .usertext p {
+            font-size: 24px;
+        }
+
+        .section02 {
+            position: relative;
+            height: 400px;
+            background-color: var(--IceCrystal);
+        }
+
+        .section02 .box01 {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            background-color: var(--BerryBlush);
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            margin-top: 10px;
+        }
+
+        .section02 .box01 a {
+            text-decoration: none;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+
+            width: 70%;
+            aspect-ratio: 1 / 1;
+            display: grid;
+            place-items: center;
+
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="section01">
+        <div class="box01"></div>
+        <div class="box02"></div>
+        <div class="box03"></div>
+        <div class="box04"></div>
+        <div class="userimg"></div>
+        <div class="usertext">
+            <h1>獎勵漂</h1>
+            <hr>
+            <h2>最初必須，民間。</h2>
+            <p>同一觀眾領導留言具備可以對她增長，格式人數情況進度，前後承諾戰鬥，更。</p>
+        </div>
+    </div>
+    <div class="section02">
+        <div class="row">
+            <div class="col-3">
+                <div class="box01"></div>
+            </div>
+            <div class="col-3">
+                <div class="box01"></div>
+            </div>
+            <div class="col-3">
+                <div class="box01"><a href="20260203-1.html" target="_blank">CH03</a></div>
+            </div>
+            <div class="col-3">
+                <div class="box01"></div>
+            </div>
+            <div class="col-3">
+                <div class="box01"></div>
+            </div>
+            <div class="col-3">
+                <div class="box01"><a href="20260212-2.html" target="_blank">CH06</a></div>
+            </div>
+            <div class="col-3">
+                <div class="box01"><a href="20260224-ch7.html" target="_blank">CH07</a></div>
+            </div>
+            <div class="col-3">
+                <div class="box01"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="JS/BS.js"></script>
+    <script src="JS/jquery-4.0.0.js"></script>
+</body>
+
+</html>

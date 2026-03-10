@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 數位藝廊｜光影沉浸展</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <style>
+        
+        :root {
+            --Artistic-Indigo: #1a2a6c;     
+            --Neon-Amber: #f2a341;          
+            --Abyss-Dark: #0f172a;         
+            --Glass-White: rgba(255, 255, 255, 0.88);
+            --Line-Color: rgba(242, 163, 65, 0.6);
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            font-family: 'Helvetica Neue', Arial, 'Noto Sans TC', sans-serif;
+        }
+
+        .bg-cover {
+            background-position: center center;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .pimg {
+            height: 320px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+            filter: grayscale(15%) contrast(105%);
+            transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .timeline-section-pointer:hover .pimg {
+            filter: grayscale(0%) contrast(115%);
+            transform: translateY(-5px);
+        }
+
+        .timeline-card {
+            background: var(--Glass-White);
+            border-radius: 20px;
+            padding: 32px 28px;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: transform 0.4s ease;
+        }
+
+        .timeline-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 13px;
+            letter-spacing: 1px;
+            font-weight: 600;
+            color: var(--Neon-Amber);
+            background: rgba(242, 163, 65, 0.1);
+            border: 1px solid rgba(242, 163, 65, 0.3);
+        }
+
+        .price {
+            font-weight: 900;
+            font-size: 24px;
+            color: var(--Artistic-Indigo);
+        }
+
+       
+        .timeline-section {
+            position: relative;
+            padding: 40px 0;
+        }
+
+        .timeline-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, transparent, var(--Neon-Amber), transparent);
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0.8;
+        }
+
+        .timeline-section-pointer {
+            position: relative;
+            margin-bottom: 80px;
+        }
+
+        .timeline-section-pointer::before {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #fff;
+            border-radius: 50%;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            border: 5px solid var(--Artistic-Indigo);
+            box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.8), 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 2;
+            transition: all 0.4s ease;
+        }
+
+        .timeline-section-pointer:hover::before {
+            width: 28px;
+            height: 28px;
+            border-color: var(--Neon-Amber);
+            box-shadow: 0 0 0 6px rgba(242, 163, 65, 0.2), 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        
+        @media (max-width: 767.98px) {
+            .timeline-section::before {
+                left: 24px;
+                transform: none;
+                background: var(--Neon-Amber); 
+            }
+            .timeline-section-pointer::before {
+                left: 24px;
+                top: 0; 
+                transform: translateX(-50%);
+            }
+            .timeline-card {
+                margin-left: 35px;
+                margin-top: 15px;
+            }
+            .timeline-section-pointer {
+                margin-bottom: 50px;
+            }
+            .pimg {
+                height: 220px;
+                margin-left: 35px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container py-5">
+
+        <div class="text-center mb-5">
+            <h1 class="fw-bold" style="color: var(--Artistic-Indigo); letter-spacing: 2px;">2026 光影沉浸展</h1>
+            <p class="text-muted">打破畫框的維度，走進由像素與光束編織的數位夢境。</p>
+        </div>
+
+        <div class="row g-4 mb-5">
+            <div class="col-md-4">
+                <div class="timeline-card h-100 text-center">
+                    <div class="h5 fw-bold mb-3" style="color: var(--Neon-Amber);">360° 全景投影</div>
+                    <div class="text-muted">突破傳統畫框限制，結合 12 台高階雷射投影機，讓色彩無死角包覆你的所有感官。</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="timeline-card h-100 text-center">
+                    <div class="h5 fw-bold mb-3" style="color: var(--Neon-Amber);">聲光即時演算</div>
+                    <div class="text-muted">配備紅外線動態捕捉技術，你的每一個步伐與觸摸，都將即時改變展場的音樂與視覺。</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="timeline-card h-100 text-center">
+                    <div class="h5 fw-bold mb-3" style="color: var(--Neon-Amber);">感官限定特調</div>
+                    <div class="text-muted">展覽尾聲附設藝術 Lounge 吧，憑票根可兌換一杯以名畫色彩為靈感的專屬調飲。</div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="my-5" style="opacity: 0.1;">
+
+        <h2 class="fw-bold mb-2 text-center" style="color: var(--Artistic-Indigo);">展區空間導覽</h2>
+        <p class="text-muted mb-5 text-center">Exhibition Map & Flow</p>
+
+        <div class="timeline-section">
+
+            <div class="row align-items-center timeline-section-pointer">
+                <div class="col-md-6 mb-4 mb-md-0">
+                    <div class="pimg bg-cover" style="background-image: url('images/zone01.jpg'); background-color: #2c3e50;"></div>
+                </div>
+                <div class="col-md-6">
+                    <div class="timeline-card">
+                        <span class="tag mb-3">Zone 01</span>
+                        <h3 class="fw-bold mb-3">序章：感官覺醒</h3>
+                        <p class="text-muted mb-4">穿越漆黑的長廊，細微的電子頻率引導你進入展區。這裡沒有具象的畫面，只有隨機生成的微光粒子在空氣中漂浮，讓眼睛與耳朵重新適應數位維度。</p>
+                        <div class="price">體驗時間 <small class="text-muted fs-6">約 10 分鐘</small></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row align-items-center flex-md-row-reverse timeline-section-pointer">
+                <div class="col-md-6 mb-4 mb-md-0">
+                    <div class="pimg bg-cover" style="background-image: url('images/zone02.jpg'); background-color: #8e44ad;"></div>
+                </div>
+                <div class="col-md-6">
+                    <div class="timeline-card text-md-end">
+                        <span class="tag mb-3">Zone 02</span>
+                        <h3 class="fw-bold mb-3">第一展區：流動的像素</h3>
+                        <p class="text-muted mb-4">將梵谷與莫內的經典畫作數據化。成千上萬的筆觸化作色彩流沙，當你靠近牆面揮手，顏料的漩渦將跟隨你的動作產生絢麗的物理碰撞。</p>
+                        <div class="price">體驗時間 <small class="text-muted fs-6">約 20 分鐘</small></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row align-items-center timeline-section-pointer">
+                <div class="col-md-6 mb-4 mb-md-0">
+                    <div class="pimg bg-cover" style="background-image: url('images/zone03.jpg'); background-color: #2980b9;"></div>
+                </div>
+                <div class="col-md-6">
+                    <div class="timeline-card">
+                        <span class="tag mb-3">Zone 03</span>
+                        <h3 class="fw-bold mb-3">第二展區：深淵與迴音</h3>
+                        <p class="text-muted mb-4">走入由無邊際鏡面打造的立體空間。雷射光束隨著環境氛圍音樂（Ambient Music）在鏡面間無限折射，營造出猶如置身星際邊緣的失重錯覺。</p>
+                        <div class="price">體驗時間 <small class="text-muted fs-6">約 15 分鐘</small></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row align-items-center flex-md-row-reverse timeline-section-pointer">
+                <div class="col-md-6 mb-4 mb-md-0">
+                    <div class="pimg bg-cover" style="background-image: url('images/zone04.jpg'); background-color: #d35400;"></div>
+                </div>
+                <div class="col-md-6">
+                    <div class="timeline-card text-md-end">
+                        <span class="tag mb-3">Zone 04</span>
+                        <h3 class="fw-bold mb-3">終章：光之羽翼</h3>
+                        <p class="text-muted mb-4">展覽的最高潮。站在巨型 LED 矩陣前，系統會捕捉你的身形輪廓，為你生成一雙獨一無二的數位光粒翅膀，並可透過掃描 QR Code 將這份專屬的藝術影像保存至手機。</p>
+                        <div class="price">體驗時間 <small class="text-muted fs-6">約 15 分鐘</small></div>
+                    </div>
+                </div>
+            </div>
+
+        </div> 
+
+    </div>
+</body>
+</html>
+
+

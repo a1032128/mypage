@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CH11練習</title>
+    <link rel="stylesheet" href="CSS/BS.css">
+    <link rel="stylesheet" href="CSS/css02.css">
+    <style>
+        .banner {
+            background-color: var(--CitrusSpark);
+            padding: 32px 28px;
+            border-radius: 30px;
+            margin-top: auto;
+            margin-left: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- justify -->
+        <div class="row g-3 mb-3 mt-3 justify-content-center">
+            <div class="col-md-10">
+                <div class="banner h-100">
+                    <div class="h1 fw-900 mb-3 display-2 text-center">飲料訂購</div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="mt-2">
+        <div class="row">
+            <div class="col-12">
+                <div class="mb-3 form-floating">
+                    <!-- placeholder -->
+                    <input type="text" class="form-control is-vad" name="" placeholder="" id="username">
+                    <label for="" class="form-label">訂購者名稱(2~5字)</label>
+                    <div class="valid-feedback">符合規定</div>
+                    <div class="invalid-feedback">不符合規定</div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="mt-2">
+        <div class="row">
+            <div class="mb-3">
+                <label for="" class="form-label">產品名稱</label>
+                <input type="text" class="form-control" name="" id="P_list_input" placeholder="字數2~6" list="P_list">
+                <datalist id="P_list">
+                    <option value="紅茶"></option>
+                    <option value="綠茶"></option>
+                    <option value="珍珠奶茶"></option>
+                    <option value="咖啡"></option>
+                </datalist>
+                <div class="valid-feedback">符合規定</div>
+                <div class="invalid-feedback">不符合規定</div>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <select id="P_ice" class="form-select form-select-lg is-invalid">
+                <option value="" disabled selected>---請選擇冰塊---</option>
+                <option value="全冰">全冰</option>
+                <option value="少冰">少冰</option>
+                <option value="微冰">微冰</option>
+                <option value="去冰">去冰</option>
+            </select>
+            <div class="valid-feedback">已選取</div>
+            <div class="invalid-feedback">請選擇</div>
+        </div>
+
+        <hr class="mt-2">
+        <div class="h2 py-3 fw-900 text-primary">單點配料(每樣10元):</div>
+        <div class="row">
+            <div class="col-12">
+                <div class="form-check">
+                    <input type="checkbox" name="chk01" value="粉圓" id="" class="form-check-input">
+                    <label for="" name="" class="form-check-label">粉圓</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" name="chk01" value="QQ" id="" class="form-check-input">
+                    <label for="" name="" class="form-check-label">QQ</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" name="chk01" value="珍珠" id="" class="form-check-input">
+                    <label for="" name="" class="form-check-label">珍珠</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" name="chk01" value="仙草" id="" class="form-check-input">
+                    <label for="" name="" class="form-check-label">仙草</label>
+                </div>
+
+                <div class="mb-3">
+                    <label for=""><span class="text-warning h1 fw-900" id="P_num_text">1</span>杯</label>
+                    <input type="range" class="form-range" min="1" max="50" step="1" id="P_num">
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="">
+                    單價: <span class="text-warning h1 fw-900" id="P_price_text">xx</span>
+                    配料: <span class="text-warning h1 fw-900" id="p_chk01_price_text">xx</span>
+                </label>
+            </div>
+            <input type="range" class="from-range" min="1" max="50" step="1" value="1" id="P_price">
+
+            <div class="mb-3">
+                <label for="" class="form-label">備註(2~10字)</label>
+                <textarea name="" id="" class="form-control"></textarea>
+            </div>
+
+            <div class="h2 text-danger fw-900">總價: <span class="h1 text-warning" id="totalPrice">0</span>元</div>
+
+            <div>
+                <button class="btn btn-outline-primary">取消</button>
+                <button class="btn btn-primary" id="ok_btn">送出</button>
+            </div>
+
+
+            <div class="col-md-10 mt-5 d-none" id="orderDetail">
+                <div class="display-2 text-bg-warning fw-900 text-center py-4 rounded-4 text-dark mb-3">飲料訂購明細
+                </div>
+                <div class="border border-3 rounded-4 shadow-sm p-3 bg-light" id="showList">
+                    <p>XXXXXX</p>
+                </div>
+                <div class="text-center my-3">
+                    <button class="btn btn-primary" id="order_btn">確認訂單</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="JS/BS.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="JS/jquery-4.0.0.js"></script>
+    <script>
+        let flag_username = false;
+        let flag_P_list = false;
+        let flag_P_ice = false;
+
+        let chk_content = []; 
+        let unitPrice = 0; 
+        let totalPrice = 0; 
+        $(function () {
+            $("#username").blur(function () {
+                if ($(this).val().length > 1 && $(this).val().length < 6) {
+                    $(this).removeClass("is-invalid").addClass("is-valid");
+                    flag_username = true;
+                } else {
+                    $(this).removeClass("is-vaild").addClass("is-invalid");
+                    flag_username = false;
+                }
+            });
+
+            
+
+            $("#P_list_input").blur(function () {
+                if ($(this).val().length > 1 && $(this).val().length < 6) {
+                    $(this).removeClass("is-invalid").addClass("is-valid");
+                    flag_P_list = true;
+                } else {
+                    $(this).removeClass("is-vaild").addClass("is-invalid");
+                    flag_P_list = false;
+                }
+            });
+
+            $("#P_ice").change(function () {
+                $(this).removeClass("is-invalid").addClass("is-valid");
+                flag_P_ice = true;
+            });
+
+            
+            $("#P_num").on("input", function () {
+                $("#P_num_text").text($(this).val());
+            });
+
+            $("#P_price").on("input", function () {
+                $("#P_price_text").text($(this).val());
+
+                chk_content = [];
+                $("input[name='chk01']:checked").each(function () {
+                    chk_content.push($(this).val());
+                });
+                $("#p_chk01_price_text").text(chk_content.length * 10)
+
+                unitPrice = Number($(this).val()) + Number(chk_content.length * 10);
+
+                totalPrice = $("#P_num").val() * unitPrice;
+
+                $("#totalPrice").text(totalPrice);
+            });
+
+            $("#ok_btn").click(function () {
+                if (flag_username && flag_P_list && flag_P_ice) {
+                    let strHtml = `
+                    <p class="fs-5">訂購者: ${$("#username").val()}</h1>
+                    <p class="fs-5">產品名稱: ${$("#P_list_input").val()}</h1>
+                    <p class="fs-5">冰塊: ${$("#P_ice").val()}</h1>
+                    <p class="fs-5">單點配料(每樣10元):${chk_content.join(", ")}</h1>
+                    <p class="fs-5">數量: ${$("#P_num").val()}</h1>
+                    <p class="fs-5">單價(每杯): ${unitPrice}元</h1>
+                    <p class="fs-5">總價: ${totalPrice}元</h1>`
+
+
+                    $("#showList").html(strHtml);
+                    $("#orderDetail").removeClass("d-none");
+
+                } else {
+                    alert("請填寫完整資料");
+                }
+            });
+
+
+            //確認訂單監聽
+            $("#order_btn").click(function () {
+                //收集傳遞至後端的訂單資料
+                let orderData = {
+                    username: $("#username").val(),
+                    productName: $("#p_name").val(),
+                    ice: $("#p_ice").val(),
+                    toppings: chk_content,
+                    quantity: $("#p_num").val(),
+                    unitPrice: $("#p_price").val(),
+                    toppingPrice: Number(chk_content.length * 10),
+                    totalPrice: totalPrice,
+                    createdAt: new Date().toLocaleString()
+
+                };
+
+                
+
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:5000/orders",
+                    contentType: "application/json",
+                    data: JSON.stringify(orderData),
+                    success: function (data) {
+                        
+                        Swal.fire({
+                            title: "新增成功",
+                            showDenyButton: false,
+                            showCancelButton: false,
+                            confirmButtonText: "確認",
+                            denyButtonText: `Don't save`
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                $("#orderDetail").addClass("d-none");
+                                
+                            } 
+                            
+                        });
+
+                    },
+                    error: function () {
+                        alert("新增失敗!");
+                    }
+                });
+
+            });
+        })
+
+    </script>
+</body>
+
+
+</html>

@@ -1,0 +1,42 @@
+Ritual tokens · CSS
+Copy
+
+:root {
+
+  --bg-deep:              hsl(210, 22%, 11%);  
+  --bg-liminal:           hsl(208, 20%, 15%);  
+  --bg-shore:             hsl(205, 16%, 19%); 
+  --surface-submerged:    hsl(210, 18%, 14%);  
+  --surface-emerging:     hsl(208, 16%, 18%);  
+  --surface-hover:        hsl(210, 15%, 21%);  
+  --reading-bg:           hsl(210, 12%, 16%); 
+  --reading-bg-elevated:  hsl(210, 11%, 19%); 
+  --text-drift:           hsl(215, 10%, 52%);  
+  --text-present:         hsl(212, 12%, 64%); 
+  --text-surface:         hsl(210, 14%, 74%); 
+  --text-shore:           hsl(22,  15%, 72%); 
+  --text-readable:        hsl(210, 10%, 78%); 
+  --text-critical:        hsl(210, 10%, 84%); 
+
+  
+  --interact-rest:        hsl(210, 14%, 28%);  
+  --interact-hover:       hsl(210, 16%, 35%);  
+  --interact-active:      hsl(208, 18%, 40%);  
+  --interact-glow:        hsla(210, 20%, 45%, 0.15); 
+
+  --fn-error:             hsl(5,   35%, 55%);  
+  --fn-error-faint:       hsla(5,  30%, 50%, 0.1);
+  --fn-success:           hsl(170, 20%, 45%); 
+
+
+  --border-faint:         hsla(210, 15%, 40%, 0.08);
+  --border-present:       hsla(210, 15%, 45%, 0.15); 
+  --border-reading:       hsla(210, 12%, 45%, 0.1);  
+
+ 
+  --warmth:               hsl(25,  18%, 55%);  
+  --warmth-faint:         hsla(25, 15%, 50%, 0.12); 
+
+  --font-display:         'Cormorant Garamond', 'Noto Serif TC', serif;
+  --font-body:            'Noto Serif TC', 'Cormorant Garamond', serif;
+}

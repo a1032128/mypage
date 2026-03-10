@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>背景圖排版練習</title>
+    <link rel="stylesheet" href="CSS/BS.css">
+    <link rel="stylesheet" href="CSS/css02.css">
+    <style>
+        .bg-cover {
+            background-position: center center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            transition: transform 1s;
+        }
+
+        .bg-cover:hover {
+            transform: scale(1.05);
+
+
+            filter: brightness(1.1);
+
+            z-index: 1;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="bg-light p-3 mb-3 mt-2 rounded-4 shadow-sm">
+            <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between">
+                <div class="h4 fw-bold mb-0">景點導覽</div>
+                <div class="small text-secondary">必要特色緊急，回到，道德。</div>
+                <div class="mt-2 mt-md-0">
+                    <a href="#" class="btn btn-outline-secondary btn-sm">熱門體驗</a>
+                    <a href="#" class="btn btn-outline-secondary btn-sm">方案價格</a>
+                    <a href="#" class="btn btn-outline-secondary btn-sm">客戶評價</a>
+                    <a href="#" class="btn btn-primary btn-sm">立即報名</a>
+                </div>
+
+
+            </div>
+            <div class="row g-3">
+                <div class="col-md-4 bg-cover" style="background-image: url(images_vsco/sakura.avif); height: 220px;">
+                </div>
+                <div class="col-md-4 bg-cover" style="background-image: url(images_vsco/hotel.avif); height: 220px;">
+                </div>
+                <div class="col-md-4 bg-cover" style="background-image: url(images_vsco/unnamed.jpg); height: 220px;">
+                </div>
+            </div>
+
+            <div class="row vh-100 g-3 mt-3">
+
+
+                <div class="col-md-3">
+                    <div class="row h-50 bg-cover my-1" style="background-image: url(images_vsco/sakura.avif)"></div>
+                    <div class="row h-50 bg-cover" style="background-image: url(images_vsco/unnamed.jpg);"></div>
+                </div>
+                <div class="col-md-6 bg-cover" style="background-image: url(images_vsco/hotel.avif);"></div>
+                <div class="col-md-3">
+                    <div class="row h-50 bg-cover my-1" style="background-image: url(images_vsco/unnamed.jpg)"></div>
+                    <div class="row h-50 bg-cover" style="background-image: url(images_vsco/sakura.avif)"></div>
+                </div>
+
+            </div>
+
+
+        </div>
+        <div class="row g-3 mt-3">
+            <div class="col-md-3 bg-cover" style="background-image: url(images_vsco/sakura.avif); height: 520px;">
+            </div>
+            <div class="col-md-3 bg-cover" style="background-image: url(images_vsco/hotel.avif); height: 520px;">
+            </div>
+            <div class="col-md-3 bg-cover" style="background-image: url(images_vsco/unnamed.jpg); height: 520px;">
+            </div>
+            <div class="col-md-3 bg-cover" style="background-image: url(images_vsco/man.avif); height: 520px;">
+            </div>
+        </div>
+    </div>
+    <script src="JS/BS.js"></script>
+    <script src="JS/jquery-4.0.0.js"></script>
+</body>
+
+</html>

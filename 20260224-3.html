@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>背景圖排版</title>
+    <link rel="stylesheet" href="CSS/BS.css">
+    <link rel="stylesheet" href="CSS/css02.css">
+    <style>
+        .bg-cover{
+        background-position: center center;
+        background-size: cover;}
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4 bg-cover" style="background-image: url(images_vsco/sakura.avif); height: 220px;"></div>
+            <div class="col-md-4 bg-cover" style="background-image: url(images_vsco/hotel.avif); height: 220px;"></div>
+            <div class="col-md-4 bg-cover" style="background-image: url(images_vsco/unnamed.jpg); height: 220px;"></div>
+        </div>
+
+
+        <div class="row vh-100">
+            <div class="col-md-8 bg-cover" style="background-image: url(images_vsco/lamp.avif);"></div>
+        
+            <div class="col-md-4 flex-column h-100 row">
+            
+                <div class="h-50 bg-cover" style="background-image:url(images_vsco/man.avif);"></div>
+                <div class="h-50 bg-cover" style="background-image: url(images_vsco/bird.avif);"></div>
+            </div>
+        </div>
+    </div>
+    <script src="JS/BS.js"></script>
+    <script src="JS/jquery-4.0.0.js"></script>
+</body>
+</html>

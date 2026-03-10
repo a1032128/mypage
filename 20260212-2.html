@@ -39,24 +39,23 @@
                 dataType:"json",
                 success: showdata,
                 error: function(){
-                    console.log ("error - JS/json/ODwsvTravelFood.json");
+                  
                 }
             });
         });
 
         function showdata(data){
-            console.log(data);
+           
 
             $("#mybody").empty();
 
             data.forEach(function(item){
-                console.log( item.City + item.Address + item.Email + item.FoodFeature + item.ID + item.Name + item.City + item.PicURL + item.Tel + item.Town );
+                
                 
                 let img = item.PicURL ? item.PicURL : "images_vsco/unnamed.jpg";
                 let tel = item.Tel ? item.Tel : "未提供"
                 let hwords = item.FoodFeature ? item.FoodFeature.substring(0,30) : "未提簡介"
                 
-                // 要補上其他的資料防呆↓
 
 
                 let strHTML = `<div class="col-md-6 col-lg-4 col-xl-3 roller-r">

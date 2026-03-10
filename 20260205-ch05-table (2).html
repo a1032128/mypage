@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ch5 表格</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/css04.css">
+    <style>
+        @media screen and (max-width: 768px){
+            .table-rwd thead{
+                display: none;
+            }
+            .table-rwd tbody tr{
+                display: block;
+                border: 1px solid var( --graffiti-dried-blood);
+                margin-top: 20px;
+            }
+            .table-rwd tbody tr td{
+                display: block;
+                overflow: hidden;
+            }
+            .table-rwd tbody tr td::before{
+                content: attr(data-th)" : ";
+                color: var(--graffiti-faded-purple);
+                font-size: 20px;
+                font-weight: 900;
+                display: block;
+                float: left;
+                width: 30%;
+                text-align: right;
+                padding-right: 1.5em;
+            }
+            .table-rwd tbody tr td span{
+                display: block;
+                float: left;
+                width: 70%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="title-01 text-center">表格</div>
+    <div class="container">
+        <table class="table table-rwd">
+            <thead class="table-dark">
+                <tr>
+                    <th>產品編號</th>
+                    <th>產品圖片</th>
+                    <th>產品名稱</th>
+                    <th>產品價格</th>
+                    <th>產品數量</th>
+                    <th>產品備註</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-th="產品編號"><span>001</span></td>
+                    <td data-th="產品圖片">
+                        <span><img src="images/cake01.jpg" width="200px" alt=""></span>
+                    </td>
+                    <td data-th="產品名稱"><span>蛋糕</span></td>
+                    <td data-th="產品價格"><span>100</span></td>
+                    <td data-th="產品數量"><span>100</span></td>
+                    <td data-th="產品備註"><span>高度特色好看幹部腦袋，警方外掛指定在他設計從而類型渠道情形人氣資本影視，短信昨日理念巨大勞動信箱尚未沒人老人獲得下載試題你好肯定，整合印刷庫存皮膚味道殺手我只各級還不自然空氣，各國還能貿易有意對著經濟發展確保填寫離線引發，國務院這樣暴力網頁班，充分看見你。</span> </td>
+                </tr>
+                <tr>
+                    <td data-th="產品編號">001</td>
+                    <td data-th="產品圖片">
+                        <img src="images/cake02.jpg" width="200px" alt="">
+                    </td>
+                    <td data-th="產品名稱">蛋糕</td>
+                    <td data-th="產品價格"><s>100</s></td>
+                    <td data-th="產品數量">100</td>
+                    <td data-th="產品備註">xxxx</td>
+                </tr>
+                <tr>
+                    <td data-th="產品編號">001</td>
+                    <td data-th="產品圖片">
+                        <img src="images/cake03.jpg" width="200px" alt="">
+                    </td>
+                    <td data-th="產品名稱">蛋糕</td>
+                    <td data-th="產品價格"><s>100</s></td>
+                    <td data-th="產品數量">100</td>
+                    <td data-th="產品備註">xxxx</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
