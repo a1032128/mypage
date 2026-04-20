@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>練習</title>
+    <link rel="stylesheet" href="CSS/BS.css">
+    <link rel="stylesheet" href="CSS/css02.css">
+    <style>
+        .bg-cover {
+            background-position: center center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            transition: transform 1s;
+        }
+
+        .pimg {
+            height: 260px;
+        }
+
+        .timeline-section {
+            position: relative;
+        }
+
+        .timeline-section::before {
+            position: absolute;
+            content: "";
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background-color: var(--BerryBlush);
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .timeline-section-pointer{
+            position: relative;
+            
+        }
+
+        .timeline-section-pointer::before {
+            position: absolute;
+            content: "";
+            width: 24px;
+            height: 24px;
+            background-color: var(--LeafWhisper);
+            border-radius: 50%;
+            left: 50% ;
+            transform: translateX(-50%);
+            top:50%;
+            border:6px solid var(--CitrusSpark);
+            transform: translate(-50%, -50%);
+            transition: all 0.5s ease;
+
+        }
+
+        .timeline-section-pointer:hover::before{
+            width: 32px;
+            height: 32px;
+        }
+
+        @media screen and (max-width:768px) {
+             .timeline-section::before , .timeline-section-pointer::before{
+                display: none;
+             }
+        }
+    </style>
+
+
+</head>
+
+
+
+    <body>
+        <div class="container py-5">
+            <div class="timeline-section">
+                <div class="row align-items-center timeline-section-pointer ">
+                    <div class="col-md-6">
+                        <div class="pimg bg-cover" style="background-image: url(images_vsco/bird.avif);"></div>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <div class="h3">產品編號001</div>
+                        <p>圖象獎勵兄弟只需引進家庭成功在於以及停。</p>
+                        <p>圖象獎勵兄弟只需引進家庭成功在於以及停。</p>
+                        <p>圖象獎勵兄弟只需引進家庭成功在於以及停。</p>
+                    </div>
+                </div>
+
+
+                <div class="container py-5">
+                    <div class="row align-items-center flex-row-reverse timeline-section-pointer" >
+                        <div class="col-md-6">
+                            <div class="pimg bg-cover" style="background-image: url(images_vsco/bird.avif);"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="h3">產品編號001</div>
+                            <p>圖象獎勵兄弟只需引進家庭成功在於以及停。</p>
+                            <p>圖象獎勵兄弟只需引進家庭成功在於以及停。</p>
+                            <p>圖象獎勵兄弟只需引進家庭成功在於以及停。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container py-5">
+                    <div class="row align-items-center timeline-section-pointer">
+                        <div class="col-md-6">
+                            <div class="pimg bg-cover" style="background-image: url(images_vsco/bird.avif);"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="h3">產品編號001</div>
+                            <p>圖象獎勵兄弟只需引進家庭成功在於以及停。</p>
+                            <p>圖象獎勵兄弟只需引進家庭成功在於以及停。</p>
+                            <p>圖象獎勵兄弟只需引進家庭成功在於以及停。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container py-5">
+                    <div class="row align-items-center flex-row-reverse timeline-section-pointer">
+                        <div class="col-md-6">
+                            <div class="pimg bg-cover" style="background-image: url(images_vsco/bird.avif);"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="h3">產品編號001</div>
+                            <p>圖象獎勵兄弟只需引進家庭成功在於以及停。</p>
+                            <p>圖象獎勵兄弟只需引進家庭成功在於以及停。</p>
+                            <p>圖象獎勵兄弟只需引進家庭成功在於以及停。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="JS/BS.js"></script>
+        <script src="JS/jquery-4.0.0.js"></script>
+    </body>
+
+</html>

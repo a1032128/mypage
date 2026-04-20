@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>練習</title>
+    <link rel="stylesheet" href="CSS/BS.css" />
+    <link rel="stylesheet" href="CSS/css04.css" />
+  </head>
+
+  <body>
+    <div class="container py-5">
+      <h2 class="text-center mb-4">資訊列表</h2>
+      <div id="farm-list" class="row g-4"></div>
+    </div>
+
+    <script>
+      const data = [
+        {
+          ID: "01_001",
+          Name: " 青青草原農場 ",
+          Address: "中山路100號",
+          Tel: " 0912-345-678 ",
+          Email: " greenfarm@gmail.com ",
+          PicURL: " https://example.com/images/farm01.jpg ",
+          City: "臺中市",
+          Town: "北屯區",
+          Url: "https://greenfarm.com.tw",
+        },
+        {
+          ID: "01_002",
+          Name: "山腳故事屋",
+          Address: "民生街88號",
+          Tel: null,
+          Email: "storyhouse@gmail.com",
+          PicURL: null,
+          City: "臺南市",
+          Town: "中西區",
+          Url: "",
+        },
+        {
+          ID: "01_003",
+          Name: "海風咖啡莊園",
+          Address: " ",
+          Tel: undefined,
+          Email: " ",
+          PicURL: " ",
+          City: "屏東縣",
+          Town: "恆春鎮",
+          Url: "https://seafarm.com",
+        },
+        {
+          ID: "01_004",
+          Name: null,
+          Address: "和平路12號",
+          Tel: "02-1234-5678",
+          Email: null,
+          PicURL: "https://example.com/images/farm04.jpg",
+          City: "臺北市",
+          Town: "大安區",
+          Url: " https://farm04.tw ",
+        },
+        {
+          ID: "01_005",
+          Name: undefined,
+          Address: undefined,
+          Tel: "",
+          Email: "",
+          PicURL: "",
+          City: "高雄市",
+          Town: "左營區",
+          Url: undefined,
+        },
+        {
+          ID: "01_006",
+          Name: "晨光果園",
+          Address: "復興路250號",
+          Tel: "0935 888 777",
+          Email: "sunfarm@yahoo.com.tw ",
+          PicURL: "https://example.com/images/farm06.jpg",
+          City: "桃園市",
+          Town: "中壢區",
+          Url: "www.sunfarm.com.tw",
+        },
+        {
+          ID: "01_007",
+          Name: " ",
+          Address: "光明街5號",
+          Tel: " ",
+          Email: "abc@gmail.com",
+          PicURL: undefined,
+          City: "新北市",
+          Town: "板橋區",
+          Url: " ",
+        },
+        {
+          ID: "01_008",
+          Name: "稻香休閒農場",
+          Address: null,
+          Tel: "04-2222-3333",
+          Email: " ricefarm@gmail.com",
+          PicURL: " https://example.com/images/farm08.jpg ",
+          City: "彰化縣",
+          Town: null,
+          Url: "https://ricefarm.tw",
+        },
+        {
+          ID: "01_009",
+          Name: "森林小屋",
+          Address: "林森路77號",
+          Tel: 912345678,
+          Email: "forest@mail.com",
+          PicURL: "https://example.com/images/farm09.jpg",
+          City: "宜蘭縣",
+          Town: "羅東鎮",
+          Url: "https://foresthouse.com.tw",
+        },
+        {
+          ID: "01_010",
+          Name: "月光花園",
+          Address: "花園街66號",
+          Tel: "0911-222-333",
+          Email: "moon garden@gmail.com",
+          PicURL: "https://example.com/images/farm10.jpg",
+          City: "南投縣",
+          Town: "埔里鎮",
+          Url: null,
+        },
+        {
+          ID: "01_011",
+          Name: "野趣農莊",
+          Address: "成功路一段9號",
+          Tel: "TEL:0910-000-111",
+          Email: "wildfarm@gmail.com",
+          PicURL: null,
+          City: "花蓮縣",
+          Town: "吉安鄉",
+          Url: "https://wildfarm.tw",
+        },
+        {
+          ID: "01_012",
+          Name: "幸福田田",
+          Address: " 中正路300號 ",
+          Tel: "08-1234567",
+          Email: undefined,
+          PicURL: " https://example.com/images/farm12.jpg ",
+          City: "臺東縣",
+          Town: "臺東市",
+          Url: "http://happyfarm.tw",
+        },
+        {
+          ID: "01_013",
+          Name: "老樹餐坊",
+          Address: "",
+          Tel: null,
+          Email: "oldtree@@gmail.com",
+          PicURL: "",
+          City: "",
+          Town: "",
+          Url: "",
+        },
+        {
+          ID: "01_014",
+          Name: " 青青草園 ",
+          Address: "中華路101號",
+          Tel: "0912-000-000#123",
+          Email: " green@farm.com ",
+          PicURL: "farm14.jpg",
+          City: "嘉義縣",
+          Town: "民雄鄉",
+          Url: "greenfarm.tw",
+        },
+        {
+          ID: "01_015",
+          Name: "天空步道農場",
+          Address: "文山路1號",
+          Tel: "N/A",
+          Email: "skyfarm@gmail.com",
+          PicURL: null,
+          City: "新竹縣",
+          Town: "竹北市",
+          Url: "https://skyfarm.com.tw",
+        },
+      ];
+
+      function normalize(data) {
+        return data.map(function (item) {
+          const name = (item.Name ?? "").trim();
+          const address = (item.Address ?? "").trim();
+          const tel = String(item.Tel ?? "").trim();
+          const email = (item.Email ?? "").trim();
+          const picurl = (item.PicURL ?? "").trim();
+          const city = (item.City ?? "").trim();
+          const town = (item.Town ?? "").trim();
+          const url = (item.Url ?? "").trim();
+
+          return {
+            Name: name === "" ? "未提供名稱" : name,
+            Address: address === "" ? "未提供地址" : address,
+            Tel: tel === "" ? "未提供電話" : tel,
+            Email: email === "" ? "未提供email" : email,
+            PicURL: picurl === "" ? "未提供圖片" : picurl,
+            City: city === "" ? "末提供城市名稱" : city,
+            Town: town === "" ? "末提供鄉鎮區名稱" : town,
+            Url: url === "" ? "末提供網址" : url,
+            FullAddress: city + town + address,
+          };
+        });
+      }
+    </script>
+    <script src="JS/BS.js"></script>
+    <script src="JS/jquery-4.0.0.js"></script>
+  </body>
+</html>

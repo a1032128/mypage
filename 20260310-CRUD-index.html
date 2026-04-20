@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD專案練習</title>
+    <link rel="stylesheet" href="CSS/BS.css">
+    <link rel="stylesheet" href="CSS/css04.css">
+    <link rel="stylesheet" href="CSS/table-rwd.css">
+</head>
+
+<body>
+
+    <body class="bg-light">
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand fw-900 text-warning" href="#">CRUD</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto.mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="#">首頁</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                產品維護
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item active" href="20260310-CRUD-index.html">新增產品</a>
+                                </li>
+                                <li><a class="dropdown-item " href="20260310-CRUD-showTable.html">產品列表</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="row justify-content-center vh-100 align-items-center bg-s">
+                <div class="col-md-6">
+                    <div class="card shadow-lg">
+                        <div class="card-header text-bg-danger fw-900 h3 text-center">新增產品</div>
+                        <div class="card-body">
+
+                            <div class="mb-3">
+                                <label for="" class="form-label">訂購者名稱</label>
+                                <input type="text" class="form-control" placeholder="字數1~8" id="username"
+                                    name="username">
+                                <div class="valid-feedback">符合規定</div>
+                                <div class="invalid-feedback">不符合規定</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="" class="form-label">品名</label>
+                                <input type="text" class="form-control" placeholder="字數1~8" id="p_name" name="p_name">
+                                <div class="valid-feedback">符合規定</div>
+                                <div class="invalid-feedback">不符合規定</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="" class="form-label">數量1~10</label>
+                                <input type="number" min="1" max="10" class="form-control" id="num" name="num">
+                                <div class="valid-feedback">符合規定</div>
+                                <div class="invalid-feedback">不符合規定</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="size" class="form-label">尺寸</label>
+                                <select name="" id="size" class="form-select-sm ">
+                                    <option value="大" selecte>大</option>
+                                    <option value="中">中</option>
+                                    <option value="小">小</option>
+                                </select>
+
+                            </div>
+
+                            <div class="text-center my-4"></div>
+                            <button class="btn btn-outline-secondary">取消</button>
+                            <button class="btn btn-primary" id="ok_btn">確認</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="JS/BS.js"></script>
+        <script src="JS/jquery-4.0.0.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script>
+            let flag_username = false
+            let flag_p_name = false
+            let flag_num = false
+            let flag_size = true
+
+            $(function () {
+                $("#username").blur(function () {
+                    if ($(this).val().length > 0 && $(this).val().length < 9) {
+                        $(this).removeClass("is-invalid").addClass("is-valid");
+                        flag_username = true;
+                    } else {
+                        $(this).removeClass("is-valid").addClass("is-invalid");
+                        flag_username = false;
+                    }
+                })
+
+                $("#p_name").blur(function () {
+                    if ($(this).val().length > 0 && $(this).val().length < 9) {
+                        let pname = $(this).val();
+                        $.ajax({
+                            type: "GET",
+                            url: `http://localhost:3000/orders?productName=${pname}`,
+                            dataType: "json",
+                            success: function (data) {
+                                if (data.length > 0) {
+                                    $("#p_name").removeClass("is-valid").addClass("is-invalid");
+                                    $("#p_name_invalid").text("該產品名稱已存在, 不能使用此名稱!");
+                                    flag_p_name = false;
+                                } else {
+                                    $("#p_name").removeClass("is-invalid").addClass("is-valid");
+                                    $("#p_name_valid").text("該產品名稱不存在, 可以使用此名稱!");
+                                    flag_p_name = true;
+                                }
+                            },
+                            error: function () {
+                                Swal.fire({
+                                    title: "產品驗證失敗",
+                                    text: "api連結: http://localhost:3000/orders?pname=??",
+                                    icon: "error"
+                                });
+                            }
+                        });
+                    } else {
+                        $(this).removeClass("is-valid").addClass("is-invalid");
+                        flag_p_name = false;
+                    }
+                })
+
+                $("#num").blur(function () {
+                    if ($(this).val() > 0 && $(this).val() < 11) {
+                        $(this).removeClass("is-invalid").addClass("is-valid");
+                        flag_num = true;
+                    } else {
+                        $(this).removeClass("is-valid").addClass("is-invalid");
+                        flag_num = false;
+                    }
+                })
+
+
+                $("#ok_btn").click(function () {
+                    if (flag_username && flag_p_name && flag_num && flag_size) {
+                        let orders123 = {
+                            username: $("#username").val(),
+                            productName: $("#p_name").val(),
+                            quantity: $("#num").val(),
+                            size: $("#size").val(),
+                            createdAt: new Date().toLocaleString()
+                        };
+
+
+                        $.ajax({
+                            type: "POST",
+                            url: "http://localhost:3000/orders",
+                            contentType: 'application/json',
+                            data: JSON.stringify(orders123),
+                            success: function (data) {
+
+                                Swal.fire({
+                                    title: "新增成功",
+                                    showDenyButton: false,
+                                    showCancelButton: false,
+                                    icon: "success",
+                                    confirmButtonText: "確認",
+                                    denyButtonText: `Don't save`
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        $("#username").val("").blur();
+                                        $("#p_name").val("").blur();
+                                        $("#num").val("1").blur();
+                                        $("#size").val("大");
+                                    }
+                                });
+
+                            },
+
+                            error: function () {
+                                Swal.fire({
+                                    title: "新增失敗",
+                                    showDenyButton: false,
+                                    showCancelButton: false,
+                                    icon: "error",
+                                    confirmButtonText: "確認",
+
+                                });
+                            }
+                        });
+
+                    } else {
+                        Swal.fire({
+                            title: "欄位有錯誤，請修正",
+                            showDenyButton: false,
+                            showCancelButton: false,
+                            icon: "error",
+                            confirmButtonText: "確認",
+                            denyButtonText: `Don't save`
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                return
+                            }
+                        });
+                    }
+                });
+            });
+
+        </script>
+    </body>
+
+</html>

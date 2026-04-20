@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>game-tracker | 一份自由研究的筆記</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Noto+Serif+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f5ecd5;
+    --paper-dark: #e8dcb8;
+    --ink: #1e2a4a;
+    --ink-fade: #3d4a6a;
+    --red: #b22a20;
+    --red-soft: #c85a50;
+    --grid: rgba(30, 42, 74, 0.08);
+    --line: rgba(30, 42, 74, 0.25);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: "Noto Serif TC", serif;
+    color: var(--ink);
+    background: var(--paper);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 24px 24px;
+    line-height: 1.8;
+    overflow-x: hidden;
+  }
+
+  /* 上方紙張邊緣裝飾 */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.08), transparent);
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  /* ============ HERO ============ */
+  .hero {
+    min-height: 95vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 100px 0 80px;
+    position: relative;
+  }
+
+  .tag {
+    display: inline-block;
+    font-family: "Caveat", cursive;
+    font-size: 1.6rem;
+    color: var(--red);
+    transform: rotate(-2deg);
+    border: 2px solid var(--red);
+    padding: 4px 16px;
+    margin-bottom: 32px;
+    align-self: flex-start;
+    background: var(--paper);
+  }
+
+  .hero h1 {
+    font-size: clamp(2.5rem, 6vw, 4.8rem);
+    font-weight: 900;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+
+  .hero h1 .accent {
+    color: var(--red);
+    position: relative;
+    display: inline-block;
+  }
+
+  .hero h1 .accent::after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    left: -4px;
+    right: -4px;
+    height: 8px;
+    background: var(--red);
+    opacity: 0.2;
+    z-index: -1;
+    transform: skew(-5deg);
+  }
+
+  .hero .subtitle {
+    font-family: "Caveat", cursive;
+    font-size: 2.2rem;
+    color: var(--ink-fade);
+    margin-bottom: 48px;
+    max-width: 720px;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 48px;
+    flex-wrap: wrap;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.85rem;
+    color: var(--ink-fade);
+    border-top: 1px solid var(--line);
+    padding-top: 32px;
+    margin-top: auto;
+  }
+
+  .hero-meta span strong {
+    color: var(--ink);
+    font-weight: 600;
+    display: block;
+    font-size: 1rem;
+    margin-top: 4px;
+  }
+
+  /* scroll hint */
+  .scroll-hint {
+    position: absolute;
+    bottom: 24px;
+    right: 40px;
+    font-family: "Caveat", cursive;
+    font-size: 1.3rem;
+    color: var(--ink-fade);
+    animation: bob 2s ease-in-out infinite;
+  }
+
+  @keyframes bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+  }
+
+  /* ============ SECTIONS ============ */
+  section {
+    padding: 100px 0;
+    position: relative;
+  }
+
+  .section-number {
+    font-family: "Caveat", cursive;
+    font-size: 5rem;
+    color: var(--red);
+    opacity: 0.35;
+    line-height: 1;
+    position: absolute;
+    top: 60px;
+    left: -60px;
+    transform: rotate(-8deg);
+  }
+
+  h2 {
+    font-size: 2.6rem;
+    font-weight: 900;
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+  }
+
+  h2 + .handwrite {
+    font-family: "Caveat", cursive;
+    font-size: 1.6rem;
+    color: var(--red);
+    margin-bottom: 40px;
+    display: block;
+  }
+
+  p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    max-width: 720px;
+  }
+
+  .marker {
+    background: linear-gradient(180deg, transparent 60%, rgba(178, 42, 32, 0.25) 60%);
+    padding: 0 2px;
+  }
+
+  /* ============ PROBLEM SECTION ============ */
+  .problem-viz {
+    margin: 48px 0;
+    display: grid;
+    grid-template-columns: 1fr 80px 1fr;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .problem-before, .problem-after {
+    padding: 32px;
+    border: 2px solid var(--ink);
+    background: var(--paper);
+    position: relative;
+  }
+
+  .problem-before {
+    transform: rotate(-1deg);
+  }
+
+  .problem-after {
+    transform: rotate(1deg);
+    border-color: var(--red);
+  }
+
+  .problem-label {
+    position: absolute;
+    top: -14px;
+    left: 16px;
+    background: var(--paper);
+    padding: 0 12px;
+    font-family: "Caveat", cursive;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  .problem-after .problem-label { color: var(--red); }
+
+  .problem-before ul, .problem-after ul {
+    list-style: none;
+    font-size: 0.95rem;
+  }
+
+  .problem-before li, .problem-after li {
+    padding: 6px 0;
+    padding-left: 20px;
+    position: relative;
+  }
+
+  .problem-before li::before {
+    content: "×";
+    position: absolute;
+    left: 0;
+    color: var(--red);
+    font-weight: bold;
+  }
+
+  .problem-after li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--red);
+    font-weight: bold;
+  }
+
+  .arrow-big {
+    font-family: "Caveat", cursive;
+    font-size: 3rem;
+    color: var(--red);
+    text-align: center;
+  }
+
+  /* ============ JOURNEY ============ */
+  .journey {
+    position: relative;
+    padding-left: 60px;
+    margin-top: 40px;
+  }
+
+  .journey::before {
+    content: "";
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    bottom: 20px;
+    width: 2px;
+    background: var(--ink);
+    opacity: 0.3;
+  }
+
+  .stage {
+    position: relative;
+    padding: 24px 0 40px;
+  }
+
+  .stage-marker {
+    position: absolute;
+    left: -56px;
+    top: 28px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 2px solid var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Caveat", cursive;
+    font-weight: 700;
+    font-size: 1.4rem;
+  }
+
+  .stage:nth-child(odd) .stage-marker {
+    background: var(--red);
+    color: var(--paper);
+    border-color: var(--red);
+  }
+
+  .stage h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .stage .stage-note {
+    font-family: "Caveat", cursive;
+    font-size: 1.3rem;
+    color: var(--ink-fade);
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .stage p {
+    font-size: 1rem;
+  }
+
+  .stage-learn {
+    margin-top: 16px;
+    padding: 16px 20px;
+    background: rgba(178, 42, 32, 0.08);
+    border-left: 3px solid var(--red);
+    font-size: 0.95rem;
+  }
+
+  .stage-learn::before {
+    content: "學到 →  ";
+    font-family: "Caveat", cursive;
+    font-size: 1.3rem;
+    color: var(--red);
+    font-weight: 700;
+  }
+
+  /* ============ PITFALLS ============ */
+  .pitfall {
+    margin: 40px 0;
+    padding: 32px;
+    background: var(--paper-dark);
+    border: 1px solid var(--line);
+    position: relative;
+  }
+
+  .pitfall::before {
+    content: "⚠";
+    position: absolute;
+    top: -18px;
+    left: 24px;
+    background: var(--paper);
+    padding: 0 12px;
+    font-size: 1.8rem;
+    color: var(--red);
+  }
+
+  .pitfall h4 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .pitfall .pitfall-sub {
+    font-family: "Caveat", cursive;
+    font-size: 1.2rem;
+    color: var(--red);
+    margin-bottom: 16px;
+  }
+
+  .pitfall p {
+    font-size: 1rem;
+    margin-bottom: 12px;
+  }
+
+  .pitfall-code {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.88rem;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 12px 16px;
+    margin: 12px 0;
+    overflow-x: auto;
+    line-height: 1.5;
+  }
+
+  .pitfall-insight {
+    margin-top: 20px;
+    font-weight: 500;
+    padding-top: 16px;
+    border-top: 1px dashed var(--line);
+  }
+
+  .pitfall-insight::before {
+    content: "→ ";
+    color: var(--red);
+    font-weight: 700;
+  }
+
+  /* ============ NUMBERS ============ */
+  .numbers {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 32px;
+    margin: 48px 0;
+  }
+
+  .number-cell {
+    padding: 24px;
+    border: 1px solid var(--line);
+    text-align: center;
+    position: relative;
+  }
+
+  .number-cell:nth-child(2n) {
+    transform: rotate(0.8deg);
+  }
+  .number-cell:nth-child(3n) {
+    transform: rotate(-0.5deg);
+  }
+
+  .number-cell .num {
+    font-size: 3.2rem;
+    font-weight: 900;
+    color: var(--red);
+    line-height: 1;
+    margin-bottom: 8px;
+    font-family: "Noto Serif TC", serif;
+  }
+
+  .number-cell .num-label {
+    font-family: "Caveat", cursive;
+    font-size: 1.2rem;
+    color: var(--ink-fade);
+  }
+
+  /* ============ REFLECTION ============ */
+  .quote-card {
+    margin: 40px 0;
+    padding: 40px;
+    border-top: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+    text-align: center;
+    background: var(--paper-dark);
+  }
+
+  .quote-card p {
+    font-family: "Caveat", cursive;
+    font-size: 1.8rem;
+    line-height: 1.5;
+    color: var(--ink);
+    margin: 0 auto;
+    max-width: 640px;
+  }
+
+  .quote-card p::before { content: "「"; color: var(--red); }
+  .quote-card p::after { content: "」"; color: var(--red); }
+
+  /* ============ FOOTER ============ */
+  footer {
+    padding: 80px 0 40px;
+    border-top: 1px solid var(--line);
+    margin-top: 60px;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 40px;
+    margin-bottom: 48px;
+  }
+
+  footer h3 {
+    font-size: 1.4rem;
+    margin-bottom: 16px;
+  }
+
+  footer p { font-size: 1rem; margin-bottom: 12px; }
+
+  .download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 20px 32px;
+    background: var(--ink);
+    color: var(--paper);
+    text-decoration: none;
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: 2px solid var(--ink);
+    transition: all 0.2s;
+    margin-top: 16px;
+  }
+
+  .download-btn:hover {
+    background: var(--red);
+    border-color: var(--red);
+    transform: translate(-2px, -2px);
+    box-shadow: 4px 4px 0 var(--ink);
+  }
+
+  .footer-meta {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.8rem;
+    color: var(--ink-fade);
+    text-align: center;
+    padding-top: 32px;
+    border-top: 1px dashed var(--line);
+  }
+
+  /* ============ code styling inline ============ */
+  code {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.9em;
+    background: rgba(30, 42, 74, 0.08);
+    padding: 2px 6px;
+    border-radius: 2px;
+  }
+
+  /* mobile */
+  @media (max-width: 720px) {
+    .container { padding: 0 24px; }
+    .section-number { left: 0; font-size: 3.5rem; }
+    .problem-viz { grid-template-columns: 1fr; }
+    .arrow-big { transform: rotate(90deg); }
+    .journey { padding-left: 40px; }
+    .stage-marker { left: -40px; width: 32px; height: 32px; font-size: 1.1rem; }
+    .journey::before { left: 15px; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .hero-meta { gap: 24px; }
+  }
+
+  /* fade-in on scroll */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- ============ HERO ============ -->
+  <header class="hero">
+    <span class="tag">自由研究 · Python 課後專題</span>
+    <h1>我想知道<br>我最近<span class="accent">要追的活動</span><br>還剩幾天</h1>
+    <p class="subtitle">
+      —— 從一個生活小麻煩，到一個每天自己醒來工作的爬蟲系統。
+    </p>
+    <div class="hero-meta">
+      <span>技術棧<strong>Python + Notion API</strong></span>
+      <span>爬蟲數量<strong>8 個 wiki 來源</strong></span>
+      <span>開發期<strong>約三週</strong></span>
+      <span>執行頻率<strong>每日自動</strong></span>
+    </div>
+    <div class="scroll-hint">↓ 一起看看</div>
+  </header>
+
+  <!-- ============ 動機 ============ -->
+  <section class="fade-in">
+    <div class="section-number">01</div>
+    <h2>為什麼做這個？</h2>
+    <span class="handwrite">一個小麻煩，累積起來就變大了</span>
+
+    <p>
+      我平常會追蹤好幾個遊戲的活動，每個遊戲都有玩家維護的社群 wiki 在更新活動時程。
+      過去的做法是<span class="marker">每天打開好幾個瀏覽器分頁一個個看</span>——
+      常常忘記、常常重複確認、常常漏掉已經快結束的活動。
+    </p>
+
+    <p>
+      課堂上學完靜態爬蟲（<code>requests</code> + <code>BeautifulSoup</code>）之後，
+      我第一個念頭是：這不就是爬蟲最適合做的事嗎？
+    </p>
+
+    <div class="problem-viz">
+      <div class="problem-before">
+        <div class="problem-label">過去 / Before</div>
+        <ul>
+          <li>打開 6 個分頁</li>
+          <li>一個一個點進去看</li>
+          <li>常常忘記哪個快結束</li>
+          <li>資訊散落在不同網站</li>
+          <li>每天重複做一樣的事</li>
+        </ul>
+      </div>
+      <div class="arrow-big">→</div>
+      <div class="problem-after">
+        <div class="problem-label">現在 / After</div>
+        <ul>
+          <li>打開 Notion，一目瞭然</li>
+          <li>活動狀態自動分類</li>
+          <li>開始 / 進行 / 結束都清楚</li>
+          <li>8 個來源統一整理</li>
+          <li>每天電腦自己做</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 成果 ============ -->
+  <section class="fade-in">
+    <div class="section-number">02</div>
+    <h2>最後做成了什麼</h2>
+    <span class="handwrite">數字比形容詞實在</span>
+
+    <div class="numbers">
+      <div class="number-cell">
+        <div class="num">8</div>
+        <div class="num-label">個爬蟲模組</div>
+      </div>
+      <div class="number-cell">
+        <div class="num">6</div>
+        <div class="num-label">種 wiki 平台</div>
+      </div>
+      <div class="number-cell">
+        <div class="num">~50</div>
+        <div class="num-label">每次執行筆數</div>
+      </div>
+      <div class="number-cell">
+        <div class="num">1</div>
+        <div class="num-label">次 / 日自動執行</div>
+      </div>
+    </div>
+
+    <p>
+      每天早上八點，我的電腦會自己醒過來，爬完所有來源、把資料寫進 Notion，然後靜靜地關閉視窗。
+      打開 Notion 我就能看到「進行中」「即將開始」「已結束」的完整清單，
+      不用再到處點開網站確認。
+    </p>
+  </section>
+
+  <!-- ============ 歷程 ============ -->
+  <section class="fade-in">
+    <div class="section-number">03</div>
+    <h2>一步一步做出來的</h2>
+    <span class="handwrite">這不是一次寫完的</span>
+
+    <p>
+      這個專案最重要的一點：<span class="marker">它不是一次做好的，而是一個階段一個階段長大的。</span>
+      每個階段都解決了前一階段不知道存在的問題。
+    </p>
+
+    <div class="journey">
+      <div class="stage">
+        <div class="stage-marker">1</div>
+        <h3>只有一個爬蟲</h3>
+        <span class="stage-note">能跑起來就好</span>
+        <p>先挑一個 wiki，從頭到尾把「抓網頁 → 解析 → 寫進 Notion」這條線打通。</p>
+        <div class="stage-learn">怎麼觀察 HTML 結構、怎麼處理不同格式的日期、怎麼用 <code>.env</code> 保護 token</div>
+      </div>
+
+      <div class="stage">
+        <div class="stage-marker">2</div>
+        <h3>加第二個 wiki，發現程式開始亂</h3>
+        <span class="stage-note">複製貼上不是辦法</span>
+        <p>第二個 wiki 的 HTML 結構和第一個完全不同，所有解析邏輯都要重寫。主程式的 import 和呼叫全擠在一起，看起來很亂。</p>
+        <div class="stage-learn">把每個 wiki 拆成獨立的 scraper 模組——這是我第一次真實感受到「模組化」不是抽象概念，而是<span class="marker">當你要加第三個功能時救你的東西</span></div>
+      </div>
+
+      <div class="stage">
+        <div class="stage-marker">3</div>
+        <h3>遇到 Cloudflare，爬不到東西</h3>
+        <span class="stage-note">以為走投無路的時候</span>
+        <p>某個 wiki 爬下去直接被 Cloudflare 擋，回來的 HTML 是驗證頁面。網路上的常見解法都試過沒用。</p>
+        <div class="stage-learn">那個 wiki 底層是 MediaWiki，有公開的 API（<code>action=parse</code>）可以繞過瀏覽器路徑。<span class="marker">很多時候「爬不了」不是真的爬不了，只是你用錯方式。</span></div>
+      </div>
+
+      <div class="stage">
+        <div class="stage-marker">4</div>
+        <h3>加排程，正式變自動化</h3>
+        <span class="stage-note">讓電腦自己做</span>
+        <p>比較了三種排程方式（Windows 工作排程器 / Python <code>schedule</code> 套件 / GitHub Actions），最後選了 Windows 工作排程器。這一步遇到我整個專案最大的坑（下一節詳談）。</p>
+        <div class="stage-learn">排程選擇的三個考量：電腦要不要一直開、要不要改程式碼、機密資料要不要上雲</div>
+      </div>
+
+      <div class="stage">
+        <div class="stage-marker">5</div>
+        <h3>加防禦性設計</h3>
+        <span class="stage-note">讓它在我睡覺的時候也能處理問題</span>
+        <p>失敗隔離（一個爬蟲壞掉不影響其他）、Notion API 502 的自動重試、完整 log 記錄、<code>upsert</code> 避免重複寫入。</p>
+        <div class="stage-learn">一個系統「能跑」和「能穩定地長期跑」中間還有一段距離，這段距離由很多雞毛蒜皮的細節組成</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 坑 ============ -->
+  <section class="fade-in">
+    <div class="section-number">04</div>
+    <h2>讓我卡最久的三個坑</h2>
+    <span class="handwrite">老實記錄才有意義</span>
+
+    <p>
+      做完之後回頭看，我卡最久的問題都不是「技術難度」的問題，
+      而是「<span class="marker">用錯角度在看問題</span>」的問題。
+    </p>
+
+    <div class="pitfall">
+      <h4>坑 1 · PermissionError 的真正原因不是權限</h4>
+      <div class="pitfall-sub">錯誤訊息會騙人</div>
+      <div class="pitfall-code">PermissionError: [Errno 13] Permission denied: 'game_tracker.log'</div>
+      <p>
+        排程第一次跑就吐這個。我花了很多時間檢查檔案權限、看哪個程序佔著、確認資料夾屬性——全部沒問題。
+      </p>
+      <p>
+        後來才發現：<span class="marker">現代 Windows 會把「桌面」資料夾自動重導向到 OneDrive</span>，
+        而我的 OneDrive 桌面名稱是日文的「デスクトップ」。Python 在某個情況下試著寫到桌面，
+        但它找到的路徑不存在，錯誤訊息「碰巧」寫成了 Permission denied。
+      </p>
+      <div class="pitfall-insight">錯誤訊息只說明「工具以為發生了什麼」，不一定是真正發生了什麼。修了三次沒進展，該停下來質疑假設。</div>
+    </div>
+
+    <div class="pitfall">
+      <h4>坑 2 · 排程器的工作目錄不是我以為的那個</h4>
+      <div class="pitfall-sub">同一份腳本，不同人叫它起來結果會不同</div>
+      <p>
+        解決桌面問題後還是出錯。明明手動雙擊 <code>run.bat</code> 正常，但排程器跑就失敗。
+      </p>
+      <p>
+        真相：<span class="marker">工作排程器執行 <code>.bat</code> 時工作目錄預設是 <code>C:\Windows\System32</code></span>，
+        不是腳本所在的資料夾。所有相對路徑全被解析到 System32 底下，而我當然沒有權限在那裡寫檔案。
+      </p>
+      <div class="pitfall-code">LOG_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "log.txt")</div>
+      <div class="pitfall-insight">程式碼「會不會動」不只取決於程式本身，還取決於誰在什麼環境下呼叫它。</div>
+    </div>
+
+    <div class="pitfall">
+      <h4>坑 3 · 編碼問題讓整個爬蟲直接 crash</h4>
+      <div class="pitfall-sub">原以為只是亂碼，結果是地雷</div>
+      <p>
+        繁中系統（CP950）碰到日文字，寫入 log 的時候直接 <code>UnicodeEncodeError</code>，爬蟲中斷。
+      </p>
+      <p>
+        解法：logging 設定明確指定 <code>encoding="utf-8"</code>，同時把所有 <code>print()</code> 換成 <code>log.info()</code>。
+      </p>
+      <div class="pitfall-insight">編碼問題不是「顯示不好看」，是「程式會 crash」。這類問題常常在開發環境看不到，上線才爆炸。</div>
+    </div>
+  </section>
+
+  <!-- ============ 反思 ============ -->
+  <section class="fade-in">
+    <div class="section-number">05</div>
+    <h2>做完之後，最想寫下的一件事</h2>
+    <span class="handwrite">如果只能帶走一句話</span>
+
+    <p>
+      這個專案讓我學到的最重要的事，不是某個套件的用法，也不是某個錯誤的解法。
+      而是一種<span class="marker">面對自己不會的東西的姿態</span>：
+    </p>
+
+    <div class="quote-card">
+      <p>大多數時候卡關不是因為技術不夠，<br>而是因為用錯角度在看問題。</p>
+    </div>
+
+    <p>
+      Cloudflare 擋爬蟲、PermissionError 的桌面問題、排程器工作目錄——
+      每一個我卡住超過十分鐘的問題，回頭看都是站在錯的地方找答案。
+      學會在挫折時停下來重新問「我現在的假設是什麼？哪裡可能錯了？」——
+      這件事比任何技術細節都更長壽。
+    </p>
+
+    <p>
+      課堂教的是 <code>requests.get()</code>。這個專案教我的，是<span class="marker">一個真正自動化的流程長什麼樣子</span>——
+      包括資料放哪、失敗怎麼辦、怎麼排程、敏感資訊怎麼管、錯誤怎麼記錄。
+      每一項單看都不難，加起來才是「一個能用的系統」跟「一段能跑的程式碼」的差別。
+    </p>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <h3>還沒做完的部分</h3>
+        <p>
+          誠實地說，這個專案不是完成品——有些爬蟲的 edge case 還沒處理、
+          Notion 的視覺呈現還能更好、有個遊戲官方根本不公告結束時間我還沒想到好辦法。
+          這也是這份作業的意義之一：<span class="marker">它還在長大。</span>
+        </p>
+      </div>
+      <div>
+        <h3>完整文件</h3>
+        <a href="README.md" class="download-btn" download>↓ 下載 README.md</a>
+      </div>
+    </div>
+
+    <div class="footer-meta">
+      Python 課程 · 自由研究專題 · 靜態爬蟲的實際應用
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  // 簡單的 intersection observer，讓 section fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

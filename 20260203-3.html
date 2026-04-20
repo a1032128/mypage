@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ch05. 表格(table)</title>
+    <link rel="stylesheet" href="CSS/BS.css">
+    <link rel="stylesheet" href="CSS/css02.css">
+    <style>
+        /* table-rwd=非正規語法、自定義:設定在寬度多少以下產生效果(供RWD功能用)) */
+        @media screen and (max-width: 768px) {
+            /* 設定thead消失 */
+            .table-rwd thead{
+                display: none;
+            }
+            
+            /* 分別讓tr跟td內容撐滿表格，達到轉向的效果 */
+            .table-rwd tbody tr{
+                display: block;
+                border: 1px solid var(--BerryBlush);
+                margin-top: 15px;
+            }
+
+            .table-rwd tbody tr td{
+                display: block;
+            }
+            /* 偽元素 */
+            /* 叫出body寫過的data-th(隱藏)，加一個冒號 */
+            .table-rwd tbody tr td::before{
+                content:attr(data-th)":";
+                font: size 20px;
+                font-weight: 400;
+            }   
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title-1 text-center">表格</div>
+        <!-- table=表格 bordered邊框 striped分層分色 hover滑鼠反應-->
+        <table class="table table-bordered table-striped table-hover table-rwd">
+            <!-- thead=標題列 -->
+            <thead class="table-dark">
+                <!-- tr=資料 -->
+                <tr>
+                    <!-- th=表頭 -->
+                    <th>商品編號</th>
+                    <th>商品名稱</th>
+                    <th>商品價格</th>
+                    <th>商品數量</th>
+                    <th>商品備註</th>
+                </tr>
+            </thead>
+            <!-- tbody=內容 -->
+            <tbody>
+                <tr>
+                    <!-- td=內容 -->
+                    <td data-th="商品編號">001</td>
+                    <td data-th="商品名稱">美式咖啡</td>
+                    <td data-th="商品價格">45</td>
+                    <td data-th="商品數量">10</td>
+                    <td data-th="商品備註">無糖</td>
+                </tr>
+                <tr>
+                    <td data-th="商品編號">002</td>
+                    <td data-th="商品名稱">拿鐵咖啡</td>
+                    <td data-th="商品價格">65</td>
+                    <td data-th="商品數量">10</td>
+                    <td data-th="商品備註">無糖</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script src="JS/BS.js"></script>
+</body>
+</html>

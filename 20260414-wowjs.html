@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>wow動畫練習</title>
+    <link rel="stylesheet" href="CSS/BS.css">
+    <link rel="stylesheet" href="CSS/css04.css">
+    <link rel="stylesheet" href="CSS/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .box01 {
+            width: 200px;
+            height: 200px;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div class="container mt-5 vh-100">
+        <div class="box01 bg-info wow animate__fadeInDownBig" data-wow-duration="3s" data-wow-delay="0s"
+            data-wow-iteration="2">
+        </div>
+    </div>
+    </div>
+
+    <div class="container mt-5 vh-100">
+        <i class="fa-solid fa-heart-pulse fa-6x text-danger wow animate__heartBeat" data-wow-duration="0.5s"
+            data-wow-delay="0s" data-wow-iteration="infinite"></i>
+    </div>
+
+    <div class="container mt-5 vh-100">
+        <div class="box01 bg-success wow animate__fadeInRightBig" data-wow-duration="3s" data-wow-delay="0s"
+            data-wow-iteration="2">
+        </div>
+    </div>
+
+    <div class="container mt-5 vh-100">
+        <div class="box01 bg-warning wow animate__fadeInUpBig" data-wow-duration="3s" data-wow-delay="0s"
+            data-wow-iteration="2">
+        </div>
+    </div>
+
+    <script src="JS/BS.js"></script>
+    <script src="JS/jquery-4.0.0.js"></script>
+    <script src="JS/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+</body>
+
+</html>

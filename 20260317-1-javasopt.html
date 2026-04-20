@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>練習</title>
+    <link rel="stylesheet" href="CSS/BS.css" />
+    <link rel="stylesheet" href="CSS/css02.css" />
+  </head>
+
+  <body>
+    <script src="JS/BS.js"></script>
+    <script src="JS/jquery-4.0.0.js"></script>
+    <script>
+      const products = [
+        {
+          id: "3",
+          username: "小美",
+          productName: "咖啡",
+          ice: "去冰",
+          toppings: ["仙草"],
+          quantity: "3",
+          unitPrice: 50,
+          toppingPrice: 10,
+          totalPrice: 180,
+          note: "無糖",
+          size: "小",
+          createdAt: "2026-03-05 11:45",
+        },
+        {
+          id: "4",
+          username: "阿國",
+          productName: "綠茶",
+          ice: "微冰",
+          toppings: ["珍珠", "粉圓"],
+          quantity: 1,
+          unitPrice: 25,
+          toppingPrice: 20,
+          totalPrice: 45,
+          note: "少糖",
+          size: "大",
+          createdAt: "2026-03-05 12:15",
+        },
+        {
+          id: "5",
+          username: "小芳",
+          productName: "珍珠奶茶",
+          ice: "少冰",
+          toppings: ["珍珠"],
+          quantity: 2,
+          unitPrice: 45,
+          toppingPrice: 10,
+          totalPrice: 110,
+          note: "半糖去冰",
+          size: "大",
+          createdAt: "2026-03-05 13:00",
+        },
+        {
+          id: "6",
+          username: "大偉",
+          productName: "冬瓜茶",
+          ice: "全冰",
+          toppings: ["仙草", "QQ"],
+          quantity: 4,
+          unitPrice: 30,
+          toppingPrice: 20,
+          totalPrice: 200,
+          note: "全糖",
+          size: "大",
+          createdAt: "2026-03-05 13:30",
+        },
+        {
+          id: "7",
+          username: "小雯",
+          productName: "鮮奶茶",
+          ice: "微冰",
+          toppings: ["粉圓"],
+          quantity: 1,
+          unitPrice: 50,
+          toppingPrice: 10,
+          totalPrice: 60,
+          note: "少糖",
+          size: "大",
+          createdAt: "2026-03-05 14:00",
+        },
+        {
+          id: "8",
+          username: "阿志",
+          productName: "檸檬汁",
+          ice: "全冰",
+          toppings: [],
+          quantity: 2,
+          unitPrice: 40,
+          toppingPrice: 0,
+          totalPrice: 80,
+          note: "半糖多冰",
+          size: "大",
+          createdAt: "2026-03-05 14:30",
+        },
+        {
+          id: "e054",
+          username: "1251",
+          productName: "草莓",
+          quantity: "10",
+          size: "大",
+          createdAt: "2026/3/10 上午11:40:52",
+        },
+        {
+          id: "f5dd",
+          username: "1251",
+          productName: "草莓",
+          quantity: "10",
+          size: "大",
+          createdAt: "2026/3/10 上午11:42:18",
+        },
+        {
+          id: "cca4",
+          username: "1251",
+          productName: "草莓",
+          quantity: "10",
+          size: "大",
+          createdAt: "2026/3/10 下午1:16:21",
+        },
+        {
+          id: "b224",
+          username: "1251",
+          productName: "11111111",
+          quantity: "4",
+          size: "中",
+          createdAt: "2026/3/10 下午1:16:55",
+        },
+        {
+          id: "3eb1",
+          username: "1251",
+          productName: "草莓02",
+          quantity: "5",
+          size: "小",
+          createdAt: "2026/3/10 下午1:19:25",
+        },
+        {
+          id: "5b0a",
+          username: "河豚",
+          productName: "橡膠",
+          quantity: "7",
+          size: "大",
+          createdAt: "2026/3/12 下午1:19:25",
+        },
+        {
+          id: "154",
+          username: "jin",
+          productName: "葡萄",
+          quantity: "6",
+          size: "大",
+          createdAt: "2026/3/12 下午1:19:25",
+        },
+        {
+          id: "2c94",
+          username: "青蛙",
+          productName: "蛋糕",
+          quantity: "4",
+          size: "中",
+          createdAt: "2026/3/12 上午11:53:20",
+        },
+        {
+          id: "216b",
+          username: "猴子",
+          productName: "肉桂捲",
+          quantity: "3",
+          size: "中",
+          createdAt: "2026/3/12 下午4:12:49",
+        },
+      ];
+
+      const productName = products.map(function (item) {
+        return item.productName;
+      });
+    </script>
+  </body>
+</html>

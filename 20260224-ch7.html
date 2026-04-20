@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ch7. Flex</title>
+    <link rel="stylesheet" href="CSS/BS.css">
+    <link rel="stylesheet" href="CSS/css02.css">
+    <style>
+        .box01 {
+            height: 120px;
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- 水平排列 -->
+        <div class="title-1">1.flex-row</div>
+        <!-- d-flex==前置(正式用法),只要有寫flex就可省略 -->
+        <div class="row d-flex flex-row">
+            <div class="col-3">
+                <div class="box01 bg-primary">
+                    <div class="display-1 text-center">01</div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="box01 bg-primary">
+                    <div class="display-1 text-center">02</div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="box01 bg-primary">
+                    <div class="display-1 text-center">03</div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="title-1">2.flex-row-reverse</div>
+        <div class="row flex-row-reverse">
+            <div class="col-3">
+                <div class="box01 bg-primary">
+                    <div class="display-1 text-center">01</div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="box01 bg-primary">
+                    <div class="display-1 text-center">02</div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="box01 bg-primary">
+                    <div class="display-1 text-center">03</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="title-1">2-1.斷點(以reverse為例)</div>
+        <!-- 寫在flex跟row之間，sm ， md ， lg ， xl ， xxl  -->
+        <div class="row flex-md-row-reverse">
+            <div class="col-3">
+                <div class="box01 bg-primary">
+                    <div class="display-1 text-center">01</div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="box01 bg-primary">
+                    <div class="display-1 text-center">02</div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="box01 bg-primary">
+                    <div class="display-1 text-center">03</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="title-1">3.flex-column</div>
+        <div class="row flex-column">
+            <div class="col-3">
+                <div class="box01 bg-primary">
+                    <div class="display-1 text-center">01</div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="box01 bg-primary">
+                    <div class="display-1 text-center">02</div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="box01 bg-primary">
+                    <div class="display-1 text-center">03</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="title-1">4.flex-column-reverse</div>
+        <div class="row flex-column-reverse">
+            <div class="col-3">
+                <div class="box01 bg-primary">
+                    <div class="display-1 text-center">01</div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="box01 bg-primary">
+                    <div class="display-1 text-center">02</div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="box01 bg-primary">
+                    <div class="display-1 text-center">03</div>
+                </div>
+            </div>
+        </div>
+        <!-- justify:專用於水平排版 -->
+        <div class="title-1">5.justify-content-start</div>
+        <div class="row justify-content-start">
+            <div class="col-3">
+                <div class="box01 bg-warning">
+                    <div class="display-1 text-center">01</div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="box01 bg-warning">
+                    <div class="display-1 text-center">02</div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="box01 bg-warning">
+                    <div class="display-1 text-center">03</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="title-1">6.justify-content-center</div>
+        <div class="row justify-content-center">
+            <div class="col-3">
+                <div class="box01 bg-warning">
+                    <div class="display-1 text-center">01</div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="box01 bg-warning">
+                    <div class="display-1 text-center">02</div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="box01 bg-warning">
+                    <div class="display-1 text-center">03</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="title-1">6-1.斷點(以center為例)</div>
+        <!-- 寫在content-center之間 -->
+        <div class="row justify-content-xl-center">
+            <div class="col-3">
+                <div class="box01 bg-warning">
+                    <div class="display-1 text-center">01</div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="box01 bg-warning">
+                    <div class="display-1 text-center">02</div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="box01 bg-warning">
+                    <div class="display-1 text-center">03</div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="title-1">7.justify-content-end</div>
+        <div class="row justify-content-end">
+            <div class="col-3">
+                <div class="box01 bg-warning">
+                    <div class="display-1 text-center">01</div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="box01 bg-warning">
+                    <div class="display-1 text-center">02</div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="box01 bg-warning">
+                    <div class="display-1 text-center">03</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="title-1">8.justify-content-around</div>
+        <div class="row justify-content-around">
+            <div class="col-3">
+                <div class="box01 bg-warning">
+                    <div class="display-1 text-center">01</div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="box01 bg-warning">
+                    <div class="display-1 text-center">02</div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="box01 bg-warning">
+                    <div class="display-1 text-center">03</div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="title-1">9.justify-content-between</div>
+        <div class="row justify-content-between">
+            <div class="col-3">
+                <div class="box01 bg-warning">
+                    <div class="display-1 text-center">01</div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="box01 bg-warning">
+                    <div class="display-1 text-center">02</div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="box01 bg-warning">
+                    <div class="display-1 text-center">03</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="title-1">10.align-item(align-item-center)</div>
+        <div class="row flex-column align-item-center">
+            <div class="col-2">
+                <div class="box01 bg-success">
+                    <div class="display-1 text-center">01</div>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="box01 bg-success">
+                    <div class="display-1 text-center">02</div>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="box01 bg-success">
+                    <div class="display-1 text-center">03</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="title-1">10-1.align-item-end</div>
+        <div class="row flex-column align-item-end">
+            <div class="col-2">
+                <div class="box01 bg-success">
+                    <div class="display-1 text-center">01</div>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="box01 bg-success">
+                    <div class="display-1 text-center">02</div>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="box01 bg-success">
+                    <div class="display-1 text-center">03</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="title-1">10-2.align-item-start</div>
+        <div class="row flex-column align-item-start">
+            <div class="col-2">
+                <div class="box01 bg-success">
+                    <div class="display-1 text-center">01</div>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="box01 bg-success">
+                    <div class="display-1 text-center">02</div>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="box01 bg-success">
+                    <div class="display-1 text-center">03</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="title-1">10-3獨立設定位置align-self</div>
+        <div class="row flex-column align-item-center">
+            <div class="col-2 align-self-start">
+                <div class="box01 bg-success">
+                    <div class="display-1 text-center">01</div>
+                </div>
+            </div>
+            <div class="col-2 align-self-end">
+                <div class="box01 bg-success">
+                    <div class="display-1 text-center">02</div>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="box01 bg-success">
+                    <div class="display-1 text-center">03</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="title-1">10-4斷點</div>
+        <!-- 都寫在位置(start,center,end)前面 -->
+        <div class="row flex-column align-item-sm-center">
+            <div class="col-2 align-self-start">
+                <div class="box01 bg-success">
+                    <div class="display-1 text-center">01</div>
+                </div>
+            </div>
+            <div class="col-2 align-self-end">
+                <div class="box01 bg-success">
+                    <div class="display-1 text-center">02</div>
+                </div>
+            </div>
+            <div class="col-2 align-self-md-center">
+                <div class="box01 bg-success">
+                    <div class="display-1 text-center">03</div>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="box01 bg-success">
+                    <div class="display-1 text-center">04</div>
+                </div>
+            </div>
+            <div class="col-2 align-self-xl-end">
+                <div class="box01 bg-success">
+                    <div class="display-1 text-center">05</div>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="box01 bg-success">
+                    <div class="display-1 text-center">06</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="title-1">11.order</div>
+        <!-- 排序，只看order後面的序列，就不是從上至下 -->
+        <div class="row flex-row">
+            <div class="col-2 order-1">
+                <div class="box01 bg-primary">
+                    <div class="display-1 text-center">01</div>
+                </div>
+            </div>
+            <div class="col-2 order-2">
+                <div class="box01 bg-primary">
+                    <div class="display-1 text-center">02</div>
+                </div>
+            </div>
+            <div class="col-2 order-3">
+                <div class="box01 bg-primary">
+                    <div class="display-1 text-center">03</div>
+                </div>
+            </div>
+            <div class="col-2 order-4">
+                <div class="box01 bg-primary">
+                    <div class="display-1 text-center">04</div>
+                </div>
+            </div>
+            <div class="col-2 order-5">
+                <div class="box01 bg-primary">
+                    <div class="display-1 text-center">05</div>
+                </div>
+            </div>
+            <div class="col-2 order-0">
+                <div class="box01 bg-primary">
+                    <div class="display-1 text-center">06</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="title-1">11.斷點(order)</div>
+        <!-- 斷點的話寫在order和數字之間 -->
+        <div class="row flex-row">
+            <div class="col-2 order-5">
+                <div class="box01 bg-primary">
+                    <div class="display-1 text-center">01</div>
+                </div>
+            </div>
+            <div class="col-2 order-sm-4">
+                <div class="box01 bg-primary">
+                    <div class="display-1 text-center">02</div>
+                </div>
+            </div>
+            <div class="col-2 order-md-3">
+                <div class="box01 bg-primary">
+                    <div class="display-1 text-center">03</div>
+                </div>
+            </div>
+            <div class="col-2 order-lg-2">
+                <div class="box01 bg-primary">
+                    <div class="display-1 text-center">04</div>
+                </div>
+            </div>
+            <div class="col-2 order-xl-1">
+                <div class="box01 bg-primary">
+                    <div class="display-1 text-center">05</div>
+                </div>
+            </div>
+            <div class="col-2 order-xxl-0">
+                <div class="box01 bg-primary">
+                    <div class="display-1 text-center">06</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="title-1">12.推格子 ms-*-auto , me-*-auto</div>
+        <!-- ms-斷點-auto  , me-斷點-auto-->
+        <!-- ms==包含自己，向後推擠 / me==自己後面向後推擠 -->
+        <div class="row">
+            <div class="col-3 me-auto">
+                <div class="box01 bg-info">
+                    <div class="display-1 text-center">01</div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="box01 bg-info">
+                    <div class="display-1 text-center">02</div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="box01 bg-info">
+                    <div class="display-1 text-center">03</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="title-1">13.推格子(垂直) mt-*-auto , mb-*-auto</div>
+        <!-- style:將row放到一個瀏覽器的高度 -->
+        <!-- mt包含自己,mb從自己之後 -->
+        <div class="row flex-column" style="height: 100vh;">
+            <div class="col-3">
+                <div class="box01 bg-info">
+                    <div class="display-1 text-center">01</div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="box01 bg-info">
+                    <div class="display-1 text-center">02</div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="box01 bg-info">
+                    <div class="display-1 text-center">03</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 如果是適用於所有從 xs 到 xxl 斷點的間隔通用類別，就不需加入中斷點縮寫。因為從 min-width: 0 以上開始都將應用這些類別，因此不受 media query 的約束。但若是針對其餘斷點，就需要包含中斷點縮寫。
+
+        對於 xs 使用固定格式 {property}{sides}-{size} 命名，對於 sm、md、lg、xl 和 xxl，使用格式 {property}{sides}-{breakpoint}-{size} 命名。
+
+        property 設定:
+
+        m - 設定 margin 的類別
+        p - 設定 padding 的類別
+        sides 設定:
+
+        t - 設定 margin-top 或是 padding-top 的類別
+        b - 設定 margin-bottom 或是 padding-bottom 的類別
+        s - (start) 在 LTR 設定 margin-left 或是 padding-left， RTL 設定 margin-right 或是 padding-right
+        e - (end) 在 LTR 設定 margin-right or padding-right， RTL 設定 margin-left 或是 padding-left
+        x - 同時設定 *-left 和 *-right
+        y - 時設定 *-top 和 *-bottom
+        blank - 同時設定 margin 或 padding 在元素的四個邊緣
+        size 設定:
+
+        0 - 設定 margin 或是 padding 為 0
+        1 - (預設) 設定 margin 或是 padding 為 $spacer * .25
+        2 - (預設) 設定 margin 或是 padding 為 $spacer * .5
+        3 - (預設) 設定 margin 或是 padding 為 $spacer
+        4 - (預設) 設定 margin 或是 padding 為 $spacer * 1.5
+        5 - (預設) 設定 margin 或是 padding 為 $spacer * 3
+        auto - 設定 margin 為 auto
+        (您也可以透過將項目增加到 $spacers Sass map 變數以新增更多尺寸。) -->
+
+        <div class="title-1">14.spacing(間隔)</div>
+        <div class="row bg-primary mt-3 p-3">
+            <div class="col-12 bg-success mb-3 pt-2">
+                <p class="bg-warning px-5 py-5">畫面大戰您是愛情仔細留言人體哪些那時無數告訴公共，喜歡回答辛苦既然簡直無限進口請求儘管其中要去顯卡，降低台北再說很多人又是重量，有什麼反饋瞭解住房看法現代化監控這麼形式推坑大魔王，有很多是有娛樂，批發發表取得加入研發戰爭多少面臨隱藏三個，天然氣息，詳細訊。
+                </p>    
+                </div>
+            <div class="col-12 bg-success mb-3 pt-2">
+                <p class="bg-warning px-5 py-5">無派你沒有睡覺價值勝利湖北實現門派強調女士報名執行時間少女，語文鮮花上漲發現試驗人力可以用掌握感謝下午訓練引導只不過，點擊只見召開連結考核上午把我輕輕總統權力推動解放不得，熱線郵箱您可以每一個擔心，謝謝絶不，承受身後不足來了尚未我現在熱門，經常報價，不住。
+                </p>    
+                </div>
+        </div>
+
+
+    </div>
+    <script src="JS/BS.js"></script>
+    <script src="JS/jquery-4.0.0.js"></script>
+</body>
+
+</html>

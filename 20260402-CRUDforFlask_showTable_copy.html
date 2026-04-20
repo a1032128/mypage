@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD 專案練習 - 顯示產品</title>
+    <link rel="stylesheet" href="CSS/BS.css">
+    <link rel="stylesheet" href="CSS/css04.css">
+    <link rel="stylesheet" href="CSS/table-rwd.css">
+</head>
+
+<body>
+
+    <body class="bg-light">
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand fw-900 text-warning" href="#">CRUD</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto.mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="#">首頁</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                產品維護
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="20260310-CRUD-index.html">新增產品</a>
+                                </li>
+                                <li><a class="dropdown-item active" href="20260310-CRUD-showTable.html">產品列表</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-warning">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">產品更新</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+
+                        <div class="mb-3">
+                            <label class="form-label">品名</label>
+                            <input type="text" class="form-control" id="modal_name">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">價格</label>
+                            <input type="number" class="form-control" id="modal_price">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">描述</label>
+                            <input type="text" class="form-control" id="modal_description">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" id="update_btn">確認更新</button>
+                        <div class="valid-feedback">符合規定</div>
+                        <div class="invalid-feedback">不符合規定</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-light">
+            <div class="container pt-5">
+
+
+
+                <div class="row justify-content-center">
+                    <div class="col-md-10 mt-5">
+                        <div class="display-4 text-primary fw-900 mb-3 text-center">顯示產品列表</div>
+                        <table class="table table-bordered shadow-sm table-rwd">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>編號</th>
+                                    <th>品名</th>
+                                    <th>價格</th>
+                                    <th>描述</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="mybody">
+                                <tr>
+                                    <td>XXX</td>
+                                    <td>XXX</td>
+                                    <td>XXX</td>
+                                    <td>XXX</td>
+                                    <td>XXX</td>
+                                    <td>XXX</td>
+                                    <td>
+                                        <button class="btn btn-outline-warning" data-bs-toggle="modal"
+                                            data-bs-target="#updateModal" data-id="xx" data-name="xxxx"
+                                            data-price="xxx">更新</button>
+                                        <button class="btn btn-danger deleteBtn data-id=" xx">刪除</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <script src="JS/BS.js"></script>
+        <script src="JS/jquery-4.0.0.js"></script>
+        <script src="js/sweetalert2@11.js"></script>
+        <script>
+            let data123 = [];
+            let uid = 0;
+
+            $(function () {
+                $.ajax({
+                    type: "GET",
+                    url: "http://127.0.0.1:5000/products",
+                    dataType: "json",
+                    success: function (data) {
+                        data123 = data.products;
+                        renderTable(data123);
+                    },
+                    error: function () {
+                        Swal.fire({
+                            title: "讀取失敗",
+                            text: "api連結:http://127.0.0.1:5000/products",
+                            icon: "error",
+                        });
+                    }
+                });
+
+                $(document).on("click", ".updateBtn", function () {
+                    uid = $(this).data("id");
+                    $("#modal_name").val($(this).data("name"));
+                    $("#modal_price").val($(this).data("price"));
+                    $("#modal_description").val($(this).data("description"));
+                });
+
+                $("#update_btn").click(function () {
+                    let jsonDATA = {};
+                    jsonDATA["name"] = $("#modal_name").val();
+                    jsonDATA["price"] = Number($("#modal_price").val());
+
+
+                    $.ajax({
+                        type: "PUT",
+                        url: `http://127.0.0.1:5000/products/${uid}`,
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify(jsonDATA),
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.message == "更新成功") {
+                                Swal.fire({
+                                    title: "更新成功",
+                                    icon: "success",
+                                    confirmButtonText: "確認"
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        location.reload();
+                                    }
+                                });
+                            }
+                        },
+                        error: function (data) {
+                        }
+                    });
+                });
+
+                $(document).on("click", ".deleteBtn", function () {
+                    const did = $(this).data("id");
+
+                    Swal.fire({
+                        title: "確認刪除?",
+                        icon: "question",
+                        showCancelButton: true,
+                        confirmButtonText: "確認",
+                        cancelButtonText: "取消"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                type: "DELETE",
+                                url: `http://127.0.0.1:5000/products/${did}`,
+                                dataType: "json",
+                                success: function (data) {
+                                    Swal.fire({
+                                        title: "刪除成功",
+                                        icon: "success",
+                                        confirmButtonText: "確認"
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            location.reload();
+                                        }
+                                    });
+                                },
+                                error: function (data) {
+                                }
+                            });
+                        }
+                    });
+                });
+
+            }); 
+            function renderTable(data) {
+                $("#mybody").empty();
+                data.forEach(function (item) {
+                    let strHtML = `<tr>
+                <td data-th="編號">${item.id}</td>
+                <td data-th="品名">${item.name}</td>
+                <td data-th="價格">${item.price}</td>
+                <td data-th="描述">${item.description ?? '無'}</td>
+                <td data-th="操作">
+                    <button class="btn btn-outline-warning updateBtn"
+                        data-bs-toggle="modal"
+                        data-bs-target="#updateModal"
+                        data-id="${item.id}"
+                        data-name="${item.name}"
+                        data-price="${item.price}">更新</button>
+                    <button class="btn btn-danger deleteBtn" data-id="${item.id}">刪除</button>
+                </td>
+            </tr>`;
+                    $("#mybody").append(strHtML);
+                });
+            }
+        </script>
+    </body>
+
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>旅館查詢</title>
+    <link rel="stylesheet" href="CSS/BS.css">
+    <link rel="stylesheet" href="CSS/css04.css">
+</head>
+
+<body>
+    <div class="container">
+
+        <!-- ====== 選單區 ====== -->
+        <div class="row mt-5">
+            <div class="col-md-6">
+                <select id="city" class="form-select form-select-lg">
+                    <option value="" disabled selected>---請選擇縣市---</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <select id="town" class="form-select form-select-lg" disabled>
+                    <option value="" disabled selected>---請選擇鄉鎮區---</option>
+                </select>
+                <div class="col-md-4 mt-3">
+                    <input type="text" name="" id="keyword" class="form-control
+                form-control-lg" placeholder="請輸入關鍵字搜尋!">
+                </div>
+            </div>
+        </div>
+
+        <!-- ======bootstrap的換頁========= -->
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- ====== 表格區 ====== -->
+        <div class=" row" id="hostlist">
+            <div class="col-12 text-center text-secondary mt-5">
+                請先選擇縣市和鄉鎮區或輸入關鍵字搜尋
+            </div>
+            <!-- <div class="col-md-6 col-lg-4 col-xxl-3 mt-3">
+                <div class="card shadow-1g">
+                    <div style="background-image: url(\images_vsco\unnamed.jpg); height:
+                    200px; background-position: center center; background-size: cover;">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">xxxx</h5>
+                        <p class="card-text">地址:XXXX</p>
+                        <p class="card-text">電話:XXXX</p>
+                        <p class="card-text">簡介:XXXX</p>
+                        <a href="#" class="btn btn-primary">查看更多</a>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+
+
+
+
+    </div>
+
+    <script src="JS/BS.js"></script>
+    <script src="JS/jquery-4.0.0.js"></script>
+    <script>
+        // ============================
+        // 第一段：宣告全域變數
+        // ============================
+        let selected_city;      // 使用者選的縣市
+        let selected_town;      // 使用者選的鄉鎮區
+        let CityCountyData;     // 儲存所有縣市與鄉鎮區資料
+        let HotelList;          // 儲存清洗後的旅館資料
+
+        let currentPage = 1;    //目前的頁數
+        let pageSize = 8    //每頁幾筆
+        let currentFilteredData =[];    //目前篩選過後的資料
+
+
+        // ============================
+        // 第二段：頁面載入後執行
+        // ============================
+        $(function () {
+
+            // ------ 2-1：ajax 取得縣市資料 ------
+            $.ajax({
+                type: "GET",
+                url: "JS/json/CityCountyData.json",
+                dataType: "json",
+                success: function (data) {
+                    // 把資料存到全域變數，之後監聽要用
+                    CityCountyData = data;
+
+                    // 清空 select，重新塞選項
+                    $("#city").empty();
+                    $("#city").append('<option value="" disabled selected>---請選擇縣市---</option>');
+
+                    // 把每個縣市名稱做成 option 塞進去
+                    data.forEach(function (item) {
+                        let strHTML = '<option value="' + item.CityName + '">' + item.CityName + '</option>';
+                        $("#city").append(strHTML);
+                    });
+                },
+                error: function () {
+                    console.log("縣市資料讀取失敗");
+                }
+            });
+
+            // ------ 2-2：ajax 取得旅館資料 ------
+            $.ajax({
+                type: "GET",
+                url: "JS/json/HotelList.json",
+                dataType: "json",
+                success: function (data) {
+                    // 清洗後存到全域變數
+                    HotelList = normalize(data.Hotels);
+                    console.log("旅館總筆數:", HotelList.length);
+                    console.log("原始第一筆:", data.Hotels);
+                    console.log("清洗後第一筆:", HotelList[0]);
+                },
+                error: function () {
+                    console.log("旅館資料讀取失敗");
+                }
+            });
+
+            // ------ 2-3：監聽縣市選單 ------
+            $("#city").change(function () {
+                // 記住使用者選了哪個縣市
+                selected_city = $(this).val();
+
+                // 從 CityCountyData 裡面找到這個縣市的鄉鎮區清單
+                let areaList = CityCountyData.filter(function (item) {
+                    return item.CityName === selected_city;
+                })[0].AreaList;
+
+                // 清空鄉鎮區選單，重新塞選項
+                $("#town").empty();
+                $("#town").append('<option value="" disabled selected>---請選擇鄉鎮區---</option>');
+
+                areaList.forEach(function (area) {
+                    let strHTML = '<option value="' + area.AreaName + '">' + area.AreaName + '</option>';
+                    $("#town").append(strHTML);
+                });
+
+                // 打開鄉鎮區選單（解除 disabled）
+                $("#town").prop("disabled", false);
+
+                // 清空表格（因為還沒選鄉鎮區）
+                $("#hostlist").empty();
+            });
+
+            // ------ 2-4：監聽鄉鎮區選單 ------
+            $("#town").change(function () {
+                // 記住使用者選了哪個鄉鎮區
+                selected_town = $(this).val();
+
+                // 從清洗後的旅館資料裡，篩選出符合縣市+鄉鎮區的
+                let result = HotelList.filter(function (item) {
+                    return item.City === selected_city && item.Town === selected_town && item.ImgURL != "未提供圖片";
+                });
+
+                console.log("篩選結果:", result.length, "筆");
+                console.log(result);
+
+                // 畫表格
+                renderTable(result);
+            });
+
+            //監聽搜尋框
+            $("#keyword").on("keyup", function () {
+                applyFilter();
+            });
+
+
+        }); // $(function) 結束
+
+        // ============================
+        // 第三段：normalize 清洗資料
+        // ============================
+        function normalize(data) {
+            return data.map(function (item) {
+                // 從原始資料取值，處理 null/undefined/空白
+                let name = String(item.HotelName ?? "").trim();
+                let city = String(item.PostalAddress?.City ?? "").trim();
+                let town = String(item.PostalAddress?.Town ?? "").trim();
+                let streetAddress = String(item.PostalAddress?.StreetAddress ?? "").trim();
+                let tel = String(item.Telephones?.[0]?.Tel ?? "").trim();
+                let description = String(item.Description ?? "").trim();
+                let image = item.Images?.[0]?.URL ?? "";
+
+                // 回傳清洗後的新物件
+                return {
+                    Name: name === "" ? "未提供名稱" : name,
+                    City: city === "" ? "未提供城市" : city,
+                    Town: town === "" ? "未提供鄉鎮區" : town,
+                    StreetAddress: streetAddress === "" ? "未提供地址" : streetAddress,
+                    FullAddress: city + town + streetAddress,
+                    Tel: tel === "" ? "未提供電話" : tel,
+                    HostWords: description === "" ? "未提供簡介" : description,
+                    ImgURL: image === "" ? "未提供圖片" : image
+                };
+            }).filter(function (item) {
+                return item.ImgURL != "未提供圖片";
+            })
+        }
+
+        function applyFilter() {
+            const keyword = $("#keyword").val().trim();
+            const result = HotelList.filter(function (item) {
+                const matchCity = !selected_city || item.City === selected_city;
+                const matchTown = !selected_town || item.Town === selected_town;
+                const text = `${item.Name}${item.City}${item.Town}${item.StreetAddress}${item.Tel}${item.HostWords}`;
+                const matchkeyword = keyword === "" || text.includes(keyword);
+                return matchCity && matchTown && matchkeyword;
+            });
+            renderTable(result);
+        }
+
+        // ============================
+        // 第四段：renderTable 畫表格
+        // ============================
+        function renderTable(data) {
+            // 先清空舊的表格內容
+            $("#hostlist").empty();
+
+            if (data.length === 0 ){
+                return
+            }
+
+            const startIndex = (currentPage -1 ) * pageSize
+            // 例: (本頁(1)的)起始 (1-1) * 8 = 0
+            const endIndex = (startIndex + pageSize);
+            // 例: (本頁(1)的)結束 0 + 8 = 8  
+
+            // 每一筆資料產生一行 <tr>，塞進 <tbody>
+            data.forEach(function (item) {
+                let strHTML = 
+                `<div class="col-md-6 col-lg-4 col-xxl-3 mt-3">
+                <div class="card shadow-lg h-100">
+                <div style="${item.ImgURL !== '未提供圖片' ? 'background-image: url(' + item.ImgURL + ');' : ''} height:200px; background-position: center center; background-size: cover;"></div>
+                <div class="card-body">
+                <h5 class="card-title">${item.Name}</h5>
+                <p class="card-text">地址: ${item.City}${item.Town}${item.StreetAddress}</p>
+                <p class="card-text">電話: ${item.Tel}</p>
+                <p class="card-text">簡介: ${item.HostWords}</p>
+                <a href="#" class="btn btn-primary">查看更多</a>
+                </div>
+                </div>
+                </div>`;
+                $("#hostlist").append(strHTML);
+            });
+        }
+    </script>
+</body>
+
+</html>

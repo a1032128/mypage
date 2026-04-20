@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD專案練習</title>
+    <link rel="stylesheet" href="CSS/BS.css">
+    <link rel="stylesheet" href="CSS/css04.css">
+    <link rel="stylesheet" href="CSS/table-rwd.css">
+</head>
+
+
+<body class="bg-light">
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand fw-900 text-warning" href="#">CRUD</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto.mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="#">首頁</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                產品維護
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item active" href="20260402-CRUDforFlask_index.html">新增產品</a>
+                                </li>
+                                <li><a class="dropdown-item " href="20260402-CRUDforFlask_showTable.html">產品列表</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <form class="d-flex" >
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="row justify-content-center vh-100 align-items-center bg-s">
+                <div class="col-md-6">
+                    <div class="card shadow-lg">
+                        <div class="card-header text-bg-danger fw-900 h3 text-center">新增產品</div>
+                        <div class="card-body">
+
+                            <div class="mb-3">
+                                <label class="form-label">品名</label>
+                                <input type="text" class="form-control" placeholder="請輸入品名" id="name">
+                                <div class="valid-feedback">符合規定</div>
+                                <div class="invalid-feedback">不符合規定</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">價格</label>
+                                <input type="number" class="form-control" placeholder="請輸入價格" id="price">
+                                <div class="valid-feedback">符合規定</div>
+                                <div class="invalid-feedback">不符合規定</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">描述</label>
+                                <input type="text" class="form-control" placeholder="請輸入描述" id="description">
+                            </div>
+
+                            <div class="text-center my-4"></div>
+                            <button type="button" class="btn btn-outline-secondary">取消</button>
+                            <button type="button" class="btn btn-primary" id="ok_btn">確認</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="JS/BS.js"></script>
+        <script src="JS/jquery-4.0.0.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script>
+            let flag_name = false;
+            let flag_price = false;
+
+            $(function () {
+                $("#name").blur(function () {
+                    if ($(this).val().trim().length > 0) {
+                        $(this).removeClass("is-invalid").addClass("is-valid");
+                        flag_name = true;
+                    } else {
+                        $(this).removeClass("is-valid").addClass("is-invalid");
+                        flag_name = false;
+                    }
+                });
+
+                $("#price").blur(function () {
+                    if (Number($(this).val()) > 0) {
+                        $(this).removeClass("is-invalid").addClass("is-valid");
+                        flag_price = true;
+                    } else {
+                        $(this).removeClass("is-valid").addClass("is-invalid");
+                        flag_price = false;
+                    }
+                });
+
+
+                $("#ok_btn").click(function () {
+                    console.log("flag_name:", flag_name, "flag_price:", flag_price);
+                    if (flag_name && flag_price) {
+                        //轉成json格式，並傳遞至後端API
+                        let orders123 = {
+                            name: $("#name").val(),
+                            price: Number($("#price").val()),
+                            description: $("#description").val()
+                        };
+
+                        console.log(JSON.stringify(orders123));
+
+                        //傳遞至後端API
+                        $.ajax({
+                            type: "POST",
+                            url: "http://127.0.0.1:5000/products",
+                            contentType: 'application/json',
+                            data: JSON.stringify(orders123),
+                            success: function (data) {
+                                console.log(data);
+
+                                Swal.fire({
+                                    title: "新增成功",
+                                    showDenyButton: false,
+                                    showCancelButton: false,
+                                    icon: "success",
+                                    confirmButtonText: "確認",
+                                    denyButtonText: `Don't save`
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        //清空輸入欄位
+                                        $("#name").val("");
+                                        $("#price").val("");
+                                        $("#description").val("");
+                                        //location.reload();
+                                    }
+                                });
+
+                            },
+
+                            error: function () {
+                                Swal.fire({
+                                    title: "新增失敗",
+                                    showDenyButton: false,
+                                    showCancelButton: false,
+                                    icon: "error",
+                                    confirmButtonText: "確認",
+
+                                });
+                            }
+                        });
+
+                    } else {
+                        //欄位有錯誤，用sweetalert顯示提醒
+                        Swal.fire({
+                            title: "欄位有錯誤，請修正",
+                            showDenyButton: false,
+                            showCancelButton: false,
+                            icon: "error",
+                            confirmButtonText: "確認",
+                            denyButtonText: `Don't save`
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                return
+                            }
+                            //return=回傳 留空=回傳空值=直接結束，不動作 
+                        });
+                    }
+                });
+            });
+
+        </script>
+    </body>
+
+</html>

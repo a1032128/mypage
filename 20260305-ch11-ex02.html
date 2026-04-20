@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>練習</title>
+    <link rel="stylesheet" href="CSS/BS.css">
+    <link rel="stylesheet" href="CSS/css02.css">
+</head>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+
+        </div>
+    </div>
+</div>
+
+<body>
+    <script src="JS/BS.js"></script>
+    <script src="JS/jquery-4.0.0.js"></script>
+</body>
+
+</html>
+
+
+
+<!-- 
+
+| 語法                 | 飲料訂單         | 課程意見回饋     |
+|------                |---------         |------------    |
+| 文字輸入框 + 字數驗證  | 訂購者名稱(2~5字)| 填寫者姓名(2~5字)|
+| 文字輸入框 + datalist | 產品名稱        | 課程名稱          |
+| 下拉選單 select       | 冰塊選擇        | 上課時段          |
+| checkbox 多選         | 單點配料        | 滿意的項目       |
+| range 拉條            | 數量            | 推薦指數(1~10)   |
+| range 拉條            | 單價            | 整體滿分(1~100)  |
+| textarea             | 備註            | 其他建議(2~30字)  |
+| 按鈕 + 明細           | 送出→顯示訂購明細 |送出 →顯示回饋明細|
+| ajax                 | 送到 json-server | 送到 json-server|
+
+你想要怎麼進行？
+
+
+提示我大致上的骨架進行的步驟，卡住之後我再來問3月5日好，給你一個步驟清單，一步一步做：
+步驟 1：HTML 骨架
+先把 container > row > col 的基本結構寫出來，放上標題橫幅「課程意見回饋」
+步驟 2：填寫者姓名
+用 form-floating 做一個文字輸入框，限制 2~5 字，記得加 valid-feedback 和 invalid-feedback
+步驟 3：課程名稱
+用 input + datalist 做一個可以打字也可以選的輸入框，放幾個課程選項進去
+步驟 4：上課時段
+用 select 下拉選單，放幾個時段選項，預設顯示「---請選擇時段---」
+步驟 5：滿意的項目
+用 checkbox 做多選，例如：教學內容、講師表現、教材品質、課堂互動
+步驟 6：兩個 range 拉條
+一個是推薦指數（1~10），一個是整體評分（1~100），旁邊各放一個 span 顯示目前數值
+步驟 7：textarea 備註
+一個其他建議的文字框
+步驟 8：按鈕 + 明細區塊
+送出按鈕 + 一個 d-none 藏起來的明細區塊，裡面放確認訂單按鈕
+步驟 9：JS 部分
+依序寫每個欄位的監聽和驗證，最後寫送出按鈕的明細顯示和 ajax -->

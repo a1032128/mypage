@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>練習</title>
+    <link rel="stylesheet" href="CSS/BS.css">
+    <link rel="stylesheet" href="CSS/all.min.css">
+    <link rel="stylesheet" href="CSS/css04.css">
+    <style>
+        .bg-cover {
+            background-position: center center;
+            background-size: cover;
+        }
+
+        .s03-img {
+            width: 100%;
+            height: 85vh;
+            object-fit: cover;
+        }
+
+        .carousel-item {
+            min-height: 400px;
+            position: relative;
+        }
+
+        .carousel-item::before {
+            position: absolute;
+            content: "";
+            inset: 0;
+            background: linear-gradient(90deg, rgba(0, 0, 0, 0.01), rgba(0, 0, 0, 0.9));
+        }
+
+        .carousel-caption-block {
+            position: absolute;
+            left: 18%;
+            bottom: 30%;
+            max-width: 500px;
+        }
+
+        .carousel-badge {
+            color: #ffc107;
+            border: 1px solid rgba(255, 193, 7, 0.5);
+            border-radius: 100px;
+            padding: 4px 12px;
+            font-size: 0.85rem;
+            letter-spacing: 0.2rem;
+            display: inline-block;
+        }
+
+        .carousel-list i {
+            width: 18px;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Rampart+One&display=swap');
+
+        .counter {
+            font-family: 'Rampart One', cursive;
+            font-size: 5em;
+            margin: 100vh auto 40vh;
+        }
+
+        .counter:not(.is-visible) {
+            visibility: hidden;
+        }
+
+        .s05-timeline-section {
+            position: relative;
+        }
+
+        .s05-timeline-section::before {
+            position: absolute;
+            content: "";
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #e9e8e8;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .s05-timeline-section-pointer {
+            position: relative;
+        }
+
+        .s05-timeline-section-pointer::before {
+            position: absolute;
+            content: "";
+            width: 20px;
+            height: 20px;
+            background-color: #dd5fa9;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 5px solid #e9e8e8;
+            border-radius: 50%;
+        }
+
+        .s05-timeline-section-pointer:hover::before {
+            width: 30px;
+            height: 30px;
+        }
+    </style>
+    <script src="https://unpkg.com/counterup2@2.0.2/dist/index.js">	</script>
+</head>
+
+<body>
+    <section id="s01" class="bg-secondary">
+        <div class="container">
+            <div class="text-end py-2">
+                <a href="#" class="text-decoration-none">
+                    <i class="fa-brands fa-square-facebook fa-beat fa-2x" style="color: rgb(14, 94, 236);"></i>
+                </a>
+                <a href="#" class="text-decoration-none">
+                    <i class="fa-brands fa-line fa-2x text-success"></i>
+                </a>
+                <a href="#" class="text-decoration-none">
+                    <i class="fa-brands fa-square-x-twitter fa-2x text-dark"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="s02" class="bg-dark">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">
+                        <i class="fa-solid fa-snowplow fa-bounce" style="color: rgb(177, 151, 252);"></i>
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link fw-900 text-primary active" aria-current="page" href="#">
+                                    <i class="fa-solid fa-house text-primary"></i>
+                                    首頁
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-warning" href="#">
+                                    <i class="fa-solid fa-info text-warning"></i>
+                                    關於我們
+                                </a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    服務項目
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">生日派對</a></li>
+                                    <li><a class="dropdown-item" href="#">公司尾牙</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div>
+                            <button class="btn btn-outline-warning" data-bs-toggle="modal"
+                                data-bs-target="#registerModal">註冊</button>
+                            <button class="btn btn-success" data-bs-toggle="modal"
+                                data-bs-target="#loginModal">登入</button>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header text-bg-warning">
+                        <h1 class="modal-title fs-5 h1" id="exampleModalLabel">會員註冊</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="h2">會員條款:</div>
+                                <p>上帝報價也沒新年多年之下眾多二級含有內。</p>
+                                <p>上帝報價也沒新年多年之下眾多二級含有內。</p>
+                                <p>上帝報價也沒新年多年之下眾多二級含有內。</p>
+                                <p>上帝報價也沒新年多年之下眾多二級含有內。</p>
+                                <p>上帝報價也沒新年多年之下眾多二級含有內。</p>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <label for="" class="form-label">帳號</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="" class="form-label">密碼</label>
+                                    <input type="password" class="form-control">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="" class="form-label">確認密碼</label>
+                                    <input type="password" class="form-control">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="" class="form-label">Email</label>
+                                    <input type="email" class="form-control">
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input">
+                                    <label for="" class="form-check-label">同意</label>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="me-auto text-decoration-none" data-bs-toggle="modal"
+                            data-bs-target="#loginModal">註冊帳號</a>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary">確認</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header text-bg-success">
+                        <h1 class="modal-title fs-5 h1" id="exampleModalLabel">會員登入</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="" class="form-label">帳號</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="" class="form-label">密碼</label>
+                            <input type="password" class="form-control">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="me-auto text-decoration-none" data-bs-toggle="modal"
+                            data-bs-target="#registerModal">還沒有帳號</a>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary">確認</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+                aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="images_vsco/20260309_PIC/L/JS745_ikakuneko_TP_V.jpg" class="d-block w-100 s03-img" alt="...">
+                <div class="carousel-caption-block d-none d-md-block rounded-4 shadow-lg"
+                    style="background-color:rgba(0,0,0,0.5);">
+                    <h5 class="display-4 fw-900 text-success">寵物友善派對</h5>
+                    <p class="fs-2">帶上你的毛孩一起來！我們提供專屬寵物活動區、寵物餐點，讓主人和毛小孩都能盡興。</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="images_vsco/20260309_PIC/L/hato_PAS04314_TP_V4.jpg" class="d-block w-100 s03-img" alt="...">
+                <div class="carousel-caption-block d-none d-md-block rounded-4 shadow-lg"
+                    style="background-color:rgba(0,0,0,0.5);">
+                    <h5 class="display-4 fw-900 text-success">戶外花園派對</h5>
+                    <p class="fs-2">在自然光與綠意中舉辦一場優雅的戶外聚會，從場地佈置到餐飲規劃，我們一手包辦。</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="images_vsco/20260309_PIC/L/KSA_iwabaniirupengin_TP_V.jpg" class="d-block w-100 s03-img"
+                    alt="...">
+                <div class="carousel-caption-block d-none d-md-block rounded-4 shadow-lg"
+                    style="background-color:rgba(0,0,0,0.5);">
+                    <h5 class="display-4 fw-900 text-success">親子主題派對</h5>
+                    <p class="fs-2">專為家庭設計的互動體驗，大人小孩都能找到屬於自己的快樂角落。</p>
+                </div>
+            </div>
+
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <section id="s04">
+        <div class="row align-items-center">
+            <div class="col-md-5 bg-cover"
+                style="background-image: url(images_vsco/20260309_PIC/L/PAK93_heyanosumidetaikuzuwari20140322_TP_V4.jpg); height: 500px;">
+            </div>
+            <div class="col-md-7 ps-5 py-5">
+                <div class="h2">西元2020年<span class="text-success fw-900">全台第一家</span></div>
+                <div class="h2 my-3">專業派對舉辦籌畫團隊</div>
+                <p class="mb-1">從場地選定、主題設計到當天執行，提供一站式派對服務。</p>
+                <p class="mb-1">累積超過千場活動經驗，合作對象涵蓋企業、學校與個人。</p>
+                <p class="mb-1">不論規模大小，每一場派對都值得被認真對待。</p>
+
+                <div class="row mt-5 text-center">
+                    <div class="col-md-6 col-lg-3">
+                        <div class="bg-success bg-opacity-50 mt-3 p-2 rounded-2 shadow-lg">
+                            <div class="h4">年均派對</div>
+                            <div class="h4">
+                                <span class="text-primary fs-3 fw-900 counter">150</span>場
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="bg-success bg-opacity-50 mt-3 p-2 rounded-2 shadow-lg">
+                            <div class="h4">獲奬項目</div>
+                            <div class="h4"> <span class="text-primary fs-3 fw-900 counter">12</span>項</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="bg-success bg-opacity-50 mt-3 p-2 rounded-2 shadow-lg">
+                            <div class="h4">專業認證</div>
+                            <div class="h4"> <span class="text-primary fs-3 fw-900 counter">8</span>項</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="bg-success bg-opacity-50 mt-3 p-2 rounded-2 shadow-lg">
+                            <div class="h4">公司據點</div>
+                            <div class="h4"> <span class="text-primary fs-3 fw-900 counter">5</span>處</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    <section id="s05" class="bg-cover py-5"
+        style="background-image: url(images_vsco/20260309_PIC/L/kazukihiro512054_TP_V4.jpg); background-attachment:fixed;">
+        <div class="container">
+            <div class="h1 text-center">派對流程</div>
+            <div class="s05-timeline-section">
+                <div class="row position-relative s05-timeline-section-pointer">
+                    <div class="col-md-6">01說明文字</div>
+                    <div class="col-md-6 bg-cover"
+                        style="background-image: url(images_vsco/20260309_PIC/L/gunkanjimaFTHG4707_TP_V4.jpg); height: 500px;">
+                    </div>
+                </div>
+                <div class="row position-relative flex-row-reverse s05-timeline-section-pointer">
+                    <div class="col-md-6">02說明文字</div>
+                    <div class="col-md-6 bg-cover"
+                        style="background-image: url(images_vsco/20260309_PIC/L/gunkanjimaFTHG4707_TP_V4.jpg); height: 500px;">
+                    </div>
+                </div>
+                <div class="row position-relative s05-timeline-section-pointer">
+                    <div class="col-md-6">03說明文字</div>
+                    <div class="col-md-6 bg-cover"
+                        style="background-image: url(images_vsco/20260309_PIC/L/gunkanjimaFTHG4707_TP_V4.jpg); height: 500px;">
+                    </div>
+                </div>
+                <div class="row position-relative flex-row-reverse s05-timeline-section-pointer">
+                    <div class="col-md-6">04說明文字</div>
+                    <div class="col-md-6 bg-cover"
+                        style="background-image: url(images_vsco/20260309_PIC/L/gunkanjimaFTHG4707_TP_V4.jpg); height: 500px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <script src="JS/BS.js"></script>
+    <script src="JS/jquery-4.0.0.js"></script>
+    <script src="js/sweetalert2@11.js"></script>
+
+    <script>
+
+        const counterUp = window.counterUp.default;
+        const callback = entries => {
+            entries.forEach(entry => {
+                const el = entry.target;
+                if (entry.isIntersecting && !el.classList.contains('is-visible')) {
+                    counterUp(el, { duration: 2000, delay: 16 });
+                    el.classList.add('is-visible');
+                }
+            });
+        };
+        const IO = new IntersectionObserver(callback, { threshold: 1 });
+        const counters = document.querySelectorAll('.counter');
+        counters.forEach(counter => IO.observe(counter));
+    </script>
+
+</body>
+
+</html>

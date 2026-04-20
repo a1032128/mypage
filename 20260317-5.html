@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>練習</title>
+    <link rel="stylesheet" href="CSS/BS.css">
+    <link rel="stylesheet" href="CSS/css04.css">
+</head>
+
+<body>
+
+
+    <body>
+        <div class="container">
+
+
+            <div class="mb-3">
+                <select id="city" class="form-select form-select-lg">
+                    <option value="" disabled selected>---請選擇縣市---</option>
+                    <option value="">xx</option>
+                    <option value="">xx</option>
+                    <option value="">xx</option>
+                    <option value="">xx</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <select id="town" class="form-select form-select-lg" disabled>
+                    <option value="" selected>---鄉鎮市區---</option>
+                    <option value="">xx</option>
+                    <option value="">xx</option>
+                    <option value="">xx</option>
+                    <option value="">xx</option>
+                </select>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-md-10 my-5">
+                    <table class="table table-bordered bg-light py-5">
+                        <thread class="table-dark">
+                            <tr>
+                                <th>名稱</th>
+                                <th>地址</th>
+                                <th>電話</th>
+                                <th>價位</th>
+                            </tr>
+                        </thread>
+                        <tbody id="hostlist">
+                            <tr>
+
+                                <td>xx</td>
+                                <td>x</td>
+                                <td>x</td>
+                                <td>x</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+            <script src="JS/BS.js"></script>
+            <script src="JS/jquery-4.0.0.js"></script>
+            <script src="js/sweetalert2@11.js"></script>
+           <script>
+    let selected_city;
+    let selected_town;
+    let CityCountyData;
+    let HotelList; 
+
+    $(function () {
+        $.ajax({
+            type: "GET",
+            url: "/js/json/CityCountyData.json",
+            dataType: "json",
+            success: function (data) {
+                CityCountyData = data;
+                $("#city").empty().append(`<option value="" selected disabled>*** 選擇縣市 ***</option>`);
+                data.forEach(function (item) {
+                    const strHTML = `<option value="${item.CityName}">${item.CityName}</option>`;
+                    $("#city").append(strHTML);
+                });
+            },
+            error: function () { console.log("縣市資料讀取失敗"); }
+        });
+
+        $("#city").change(function () {
+            selected_city = $(this).val();
+            const cityObj = CityCountyData.find(item => item.CityName === selected_city);
+            const areaList = cityObj ? cityObj.AreaList : [];
+
+            $("#town").empty().append(`<option value="" selected disabled>***選擇鄉鎮區***</option>`);
+            areaList.forEach(function (town) {
+                $("#town").append(`<option value="${town.AreaName}">${town.AreaName}</option>`);
+            });
+            $("#town").prop("disabled", false);
+        });
+
+        
+        $("#town").change(function () {
+            selected_town = $(this).val(); 
+        });
+
+       
+        $.ajax({
+            type: "GET",
+            url: "/JS/json/HotelList.json",
+            dataType: "json",
+            success: function (data) {
+                HotelList = normalize(data.Hotels); 
+                renderTable(HotelList);
+            },
+            error: function () { console.log("旅館資料讀取失敗"); }
+        });
+
+        function normalize(data) {
+            return data.map(function (item) {
+                return {
+                    name: item.HotelName || "未提供名稱",
+                    city: item.PostalAddress?.City || "",
+                    town: item.PostalAddress?.Town || "",
+                    address: item.PostalAddress?.Address || "",
+                    fullAddress: (item.PostalAddress?.City || "") + (item.PostalAddress?.Town || "") + (item.PostalAddress?.Address || ""),
+                    tel: item.Telephones?.[0]?.Tel || "未提供電話",
+                    lowestPrice: item.LowestPrice ?? 0,
+                    ceilingPrice: item.CeilingPrice ?? 0
+                };
+            });
+        }
+
+        function renderTable(data) {
+            $("#hostlist").empty(); 
+            data.forEach(function (item) {
+                let strHTML = `<tr>
+                    <td>${item.name}</td>
+                    <td>${item.fullAddress}</td>
+                    <td>${item.tel}</td>
+                    <td>${item.lowestPrice} ~ ${item.ceilingPrice}</td>
+                </tr>`;
+                $("#hostlist").append(strHTML);
+            });
+        }
+    }); 
+</script>
+    </body>
+
+</html>

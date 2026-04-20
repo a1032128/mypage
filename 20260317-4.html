@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>javascript ex01</title>
+    <link rel="stylesheet" href="CSS/BS.css" />
+    <link rel="stylesheet" href="CSS/css04.css" />
+  </head>
+
+  <body>
+    <script src="JS/BS.js"></script>
+    <script src="JS/jquery-4.0.0.js"></script>
+    <script src="JS/travelData.js"></script>
+    <script>
+      const result = normalize(travelData).filter(function (item) {
+        return (
+          item.Name.includes("美食") ||
+          item.City.includes("美食") ||
+          item.Town.includes("美食") ||
+          item.HostWords.includes("美食")
+        );
+      });
+
+      function normalize(data) {
+        return data.map(function (item) {
+          const name = (item.Name ?? "").trim();
+          const address = (item.Address ?? "").trim();
+          const city = (item.City ?? "").trim();
+          const town = (item.Town ?? "").trim();
+          const tel = String(item.Tel ?? "").trim();
+          const email = (item.Email ?? "").trim();
+          const picurl = (item.PicURL ?? "").trim();
+          const url = (item.Url ?? "").trim();
+          const hostwords = (item.Hostwords ?? "").trim();
+
+          return {
+            Name: name === "" ? "未提供名稱" : name,
+            Address: address === "" ? "未提供地址" : address,
+            City: city === "" ? "未提供城市" : city,
+            Town: town === "" ? "未提供鄉鎮區名稱" : town,
+            Tel: tel === "" ? "未提供電話" : tel,
+            Email: email === "" ? "未提供email" : email,
+            PicURL: picurl === "" ? "未提供圖片" : picurl,
+            Url: url === "" ? "未提供網址" : url,
+            HostWords: hostwords === "" ? "未提供簡介" : hostwords,
+            FullAddress: city + town + address,
+          };
+        });
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hover練習</title>
+    <style>
+        .box {
+            height: 150px;
+            width: 200px;
+            background-color: blueviolet;
+            border-radius: 15px;
+            box-shadow: 3px 3px 10px 3px #110f0f;
+            
+            color: aliceblue;
+            font-size: 35px;
+            text-align: center;
+            line-height: 150px;
+
+            margin: 30px;
+
+        }
+        .box:hover{
+            background-color: aqua;
+            font-size: 40px;
+            box-shadow: 5px 5px 10px 3px #110f0f;
+            transform: scale(1.05);
+            transition: transform 1.5s ;
+        }
+    </style>
+</head>
+<body><div class="box">BOX A</div>
+    <div class="box">BOX B</div>
+    <div class="box">BOX C</div>
+    
+</body>
+</html>
